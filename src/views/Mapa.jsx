@@ -3,11 +3,17 @@ import L from 'leaflet'
 import { ESPACIOS_INICIALES, FILTROS } from '../data/espacios'
 import { useApp } from '../context/AppContext'
 
-const iconoCalma = (sugerido) => L.divIcon({
-  className: '',
-  html: `<div style="width:34px;height:34px;border-radius:50% 50% 50% 6px;background:${sugerido ? '#B7A9D6' : '#7FA792'};display:grid;place-items:center;color:#fff;font-size:16px;box-shadow:0 2px 8px rgba(0,0,0,.3)">${sugerido ? '💜' : '🌿'}</div>`,
-  iconSize: [34, 34], iconAnchor: [17, 34],
-})
+const iconoMarcador = (espacio) => {
+  const esAlerta = espacio.tags.includes('sobreestimulacion') || espacio.tags.includes('sin-acceso')
+  const esSugerido = espacio.tags.includes('sugerido')
+  const bg = esAlerta ? '#3F7CA6' : esSugerido ? '#B7A9D6' : '#7FA792'
+  const emoji = espacio.tags.includes('sin-acceso') ? '🚫' : espacio.tags.includes('sobreestimulacion') ? '⚡' : esSugerido ? '💜' : '🌿'
+  return L.divIcon({
+    className: '',
+    html: `<div style="width:34px;height:34px;border-radius:50% 50% 50% 6px;background:${bg};display:grid;place-items:center;color:#fff;font-size:16px;box-shadow:0 2px 8px rgba(0,0,0,.3)">${emoji}</div>`,
+    iconSize: [34, 34], iconAnchor: [17, 34],
+  })
+}
 
 export default function Mapa() {
   const { toast } = useApp()
@@ -16,6 +22,7 @@ export default function Mapa() {
   const capaRef = useRef(null)
   const miMarkerRef = useRef(null)
   const sugiriendoRef = useRef(false)
+  const tipoSugerenciaRef = useRef('calma')
   const [espacios, setEspacios] = useState(ESPACIOS_INICIALES)
   const [filtro, setFiltro] = useState('todos')
 
@@ -31,6 +38,22 @@ export default function Mapa() {
     mapa.on('click', (e) => {
       if (!sugiriendoRef.current) return
       sugiriendoRef.current = false
+
+      if (tipoSugerenciaRef.current === 'alerta') {
+        const nombre = window.prompt('Nombre del sitio a reportar:')
+        if (!nombre) return
+        const esSobreestimulacion = window.confirm(
+          '¿El problema es sobreestimulación sensorial (ruido, luces, aglomeración)?\n\nAceptar = sobreestimulación · Cancelar = falta de accesibilidad',
+        )
+        setEspacios((prev) => [...prev, {
+          id: Date.now(), n: nombre, lat: e.latlng.lat, lng: e.latlng.lng,
+          tags: [esSobreestimulacion ? 'sobreestimulacion' : 'sin-acceso'],
+          d: 'Sitio reportado por la comunidad (pendiente de verificación).',
+        }])
+        toast('⚠️ Gracias por avisar. Ayudará a otras personas a evitarlo.')
+        return
+      }
+
       const nombre = window.prompt('Nombre del espacio de calma:')
       if (!nombre) return
       setEspacios((prev) => [...prev, {
@@ -52,7 +75,7 @@ export default function Mapa() {
     espacios
       .filter((e) => filtro === 'todos' || e.tags.includes(filtro))
       .forEach((e) => {
-        L.marker([e.lat, e.lng], { icon: iconoCalma(e.tags.includes('sugerido')) })
+        L.marker([e.lat, e.lng], { icon: iconoMarcador(e) })
           .bindPopup(`<b>${e.n}</b><br><small>${e.d}</small><br><small>🏷️ ${e.tags.join(' · ')}</small><br><a href="https://www.google.com/maps/dir/?api=1&destination=${e.lat},${e.lng}" target="_blank" rel="noreferrer">Cómo llegar →</a>`)
           .addTo(capa)
       })
@@ -86,12 +109,15 @@ export default function Mapa() {
       <div ref={cajaRef} className="mapa-caja" role="application" aria-label="Mapa de espacios de calma" />
 
       <div className="mapa-acciones">
-        <button className="btn" onClick={ubicarme}>📍 Mi ubicación</button>
-        <button className="btn sec" onClick={() => { sugiriendoRef.current = true; toast('Toca el punto del mapa donde está el espacio 🌿') }}>
+        <button className="btn azul" onClick={ubicarme}>📍 Mi ubicación</button>
+        <button className="btn sec" onClick={() => { sugiriendoRef.current = true; tipoSugerenciaRef.current = 'calma'; toast('Toca el punto del mapa donde está el espacio 🌿') }}>
           ➕ Sugerir un espacio
         </button>
+        <button className="btn sec" onClick={() => { sugiriendoRef.current = true; tipoSugerenciaRef.current = 'alerta'; toast('Toca el punto del mapa que quieres reportar ⚠️') }}>
+          ⚠️ Reportar sitio a evitar
+        </button>
       </div>
-      <small className="nota">Para sugerir un espacio, presiona el botón y luego toca el punto del mapa donde se encuentra.</small>
+      <small className="nota">🌿 Calma · 💜 Sugerido por la comunidad · 🔵 Sitio a evitar (sobreestimulación o poca accesibilidad). Presiona un botón y luego toca el punto del mapa donde se encuentra.</small>
     </section>
   )
 }

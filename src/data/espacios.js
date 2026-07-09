@@ -8,6 +8,8 @@ export const ESPACIOS_INICIALES = [
   { id: 6, n: 'Parque Bicentenario', lat: -33.4066, lng: -70.6014, tags: ['naturaleza', 'accesible'], d: 'Extensas áreas verdes junto a la laguna, muy accesible.' },
   { id: 7, n: 'Biblioteca de Santiago', lat: -33.446, lng: -70.6797, tags: ['techado', 'silencio', 'accesible', 'sensorial'], d: 'Salas silenciosas, techadas y con zonas de baja estimulación.' },
   { id: 8, n: 'Parque Quinta Normal', lat: -33.4415, lng: -70.681, tags: ['naturaleza', 'accesible'], d: 'Parque histórico con lagunas, árboles centenarios y espacios amplios.' },
+  { id: 9, n: 'Mall Plaza Trébol', lat: -36.8288, lng: -73.0725, tags: ['sobreestimulacion'], d: 'Centro comercial con luces, ruido y aglomeración altos. Puede ser difícil para personas sensibles a la sobreestimulación.' },
+  { id: 10, n: 'Terminal de Buses Collao', lat: -36.8137, lng: -73.0603, tags: ['sin-acceso'], d: 'Sitio reportado con accesibilidad limitada para personas con movilidad reducida o silla de ruedas.' },
 ]
 
 export const FILTROS = [
@@ -17,4 +19,6 @@ export const FILTROS = [
   { id: 'techado', label: '🏠 Techado' },
   { id: 'accesible', label: '♿ Accesible' },
   { id: 'sensorial', label: '🧩 Bajo estímulo sensorial' },
+  { id: 'sobreestimulacion', label: '⚡ Alta estimulación' },
+  { id: 'sin-acceso', label: '🚫 Poco accesible' },
 ]
