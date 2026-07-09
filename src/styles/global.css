@@ -147,3 +147,30 @@ footer p{margin-bottom:2px}
 footer a{color:var(--bosque);font-weight:700;text-decoration:none}
 footer a:hover{text-decoration:underline}
 .toast{position:fixed;left:50%;bottom:100px;transform:translateX(-50%);background:var(--bosque);color:#fff;padding:12px 20px;border-radius:999px;font-size:.9rem;z-index:1500;box-shadow:var(--sombra);max-width:90vw;text-align:center}
+
+/* ============ MINI-JUEGOS SENSORIALES ============ */
+.trazo-hint{position:absolute;inset:0;display:grid;place-items:center;color:var(--tinta-suave);font-size:.85rem;pointer-events:none}
+.trazo-hint.claro{color:rgba(255,255,255,.75)}
+.trazo-hint-fija{text-align:center;color:var(--tinta-suave);font-size:.85rem;margin-top:10px}
+
+.burbujas-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin:12px 0}
+.burbuja{aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 32% 28%,#fff,var(--cielo) 70%);box-shadow:0 3px 8px rgba(47,83,71,.25),inset 0 -3px 6px rgba(0,0,0,.08);transition:transform .15s ease,box-shadow .15s ease;touch-action:manipulation}
+.burbuja:active{transform:scale(.9)}
+.burbuja.pop{background:var(--niebla);box-shadow:inset 0 3px 6px rgba(0,0,0,.18);transform:scale(.82)}
+
+.globo-zona{text-align:center;padding:10px 0}
+.globo-blob{width:170px;height:170px;margin:0 auto;border-radius:50%;background:radial-gradient(circle at 34% 28%,#E7DCF5,var(--lavanda) 75%);display:grid;place-items:center;font-size:3rem;box-shadow:var(--sombra);transition:transform .25s cubic-bezier(.34,1.56,.64,1);touch-action:none;user-select:none}
+.globo-blob.apretado{transform:scale(.76)}
+
+.trazo-zona{position:relative;height:220px;border-radius:18px;background:linear-gradient(160deg,var(--lavanda-suave),var(--cielo-suave));overflow:hidden;touch-action:none}
+.trazo-punto{position:absolute;width:16px;height:16px;margin:-8px;border-radius:50%;background:radial-gradient(circle,#fff,var(--cielo));animation:trazoFade .9s ease forwards;pointer-events:none}
+@keyframes trazoFade{from{opacity:.9;transform:scale(1)}to{opacity:0;transform:scale(2.4)}}
+
+.estrellas-zona{position:relative;height:220px;border-radius:18px;background:linear-gradient(160deg,#1B2622,#2F5347);overflow:hidden;touch-action:none}
+.estrella-part{position:absolute;transform:translate(-50%,-50%);font-size:1.4rem;animation:estrellaFlota 1.6s ease forwards;pointer-events:none}
+@keyframes estrellaFlota{0%{opacity:0;transform:translate(-50%,-50%) scale(.4)}15%{opacity:1;transform:translate(-50%,-50%) scale(1.1)}100%{opacity:0;transform:translate(-50%,-140%) scale(.8)}}
+
+.rueda-zona{display:flex;flex-direction:column;align-items:center;gap:4px;padding:14px 0}
+.rueda{width:170px;height:170px;border-radius:50%;background:conic-gradient(var(--salvia),var(--lavanda),var(--cielo),var(--salvia));display:grid;place-items:center;font-size:2.6rem;box-shadow:var(--sombra);touch-action:none;user-select:none;cursor:grab}
+
+.color-blob{width:100%;max-width:280px;height:150px;display:block;margin:6px auto 0;border-radius:28px;border:none;color:#fff;font-weight:700;font-family:var(--fd);font-size:1.05rem;transition:background .8s ease;box-shadow:var(--sombra)}
