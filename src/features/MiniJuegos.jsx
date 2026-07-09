@@ -1,5 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 import Modal from '../components/Modal'
+import {
+  sonidoActivo, alternarSonido, sonarPop, sonarSuelta, sonarApretar,
+  sonarSoltarGlobo, sonarTick, sonarChispa, sonarBoop, sonarGiro,
+} from './juegos-sonido'
 
 const JUEGOS = [
   { id: 'burbujas', ic: '🫧', t: 'Burbujas', d: 'Revienta e infla burbujas sin parar' },
@@ -18,7 +22,7 @@ function Burbujas() {
   const alternar = (i) => {
     setReventadas((prev) => {
       const next = new Set(prev)
-      next.has(i) ? next.delete(i) : next.add(i)
+      if (next.has(i)) { next.delete(i); sonarSuelta() } else { next.add(i); sonarPop() }
       return next
     })
   }
@@ -38,13 +42,19 @@ function Burbujas() {
 /** Globo/blob que se aprieta al mantener presionado */
 function Globo() {
   const [presionado, setPresionado] = useState(false)
+
+  const soltar = () => {
+    if (presionado) sonarSoltarGlobo()
+    setPresionado(false)
+  }
+
   return (
     <div className="globo-zona">
       <div
         className={`globo-blob ${presionado ? 'apretado' : ''}`}
-        onPointerDown={() => setPresionado(true)}
-        onPointerUp={() => setPresionado(false)}
-        onPointerLeave={() => setPresionado(false)}
+        onPointerDown={() => { setPresionado(true); sonarApretar() }}
+        onPointerUp={soltar}
+        onPointerLeave={soltar}
       >🎈</div>
       <p className="trazo-hint-fija">Mantén presionado y suelta</p>
     </div>
@@ -55,6 +65,7 @@ function Globo() {
 function Trazo() {
   const zonaRef = useRef(null)
   const arrastrando = useRef(false)
+  const ultimoSonido = useRef(0)
   const [puntos, setPuntos] = useState([])
 
   const agregarPunto = (clientX, clientY) => {
@@ -64,6 +75,8 @@ function Trazo() {
     const y = clientY - rect.top
     setPuntos((prev) => [...prev.slice(-40), { id, x, y }])
     setTimeout(() => setPuntos((prev) => prev.filter((p) => p.id !== id)), 900)
+    const ahora = performance.now()
+    if (ahora - ultimoSonido.current > 90) { sonarTick(); ultimoSonido.current = ahora }
   }
 
   const onDown = (e) => {
@@ -94,6 +107,7 @@ function Estrellas() {
     const y = e.clientY - rect.top
     setEstrellas((prev) => [...prev.slice(-25), { id, x, y }])
     setTimeout(() => setEstrellas((prev) => prev.filter((s) => s.id !== id)), 1600)
+    sonarChispa()
   }
 
   return (
@@ -109,7 +123,13 @@ function Rueda() {
   const ruedaRef = useRef(null)
   const raf = useRef(null)
   const estado = useRef({ activo: false, anguloAnterior: 0, velocidad: 0 })
+  const ultimoSonido = useRef(0)
   const [grados, setGrados] = useState(0)
+
+  const sonarSiToca = (velocidad) => {
+    const ahora = performance.now()
+    if (Math.abs(velocidad) > 1 && ahora - ultimoSonido.current > 70) { sonarGiro(velocidad); ultimoSonido.current = ahora }
+  }
 
   const anguloDesdeCentro = (clientX, clientY) => {
     const rect = ruedaRef.current.getBoundingClientRect()
@@ -132,12 +152,14 @@ function Rueda() {
     setGrados((g) => g + delta)
     estado.current.velocidad = delta
     estado.current.anguloAnterior = actual
+    sonarSiToca(delta)
   }
   const onUp = () => {
     estado.current.activo = false
     const decel = () => {
       estado.current.velocidad *= 0.95
       setGrados((g) => g + estado.current.velocidad)
+      sonarSiToca(estado.current.velocidad)
       if (Math.abs(estado.current.velocidad) > 0.05) raf.current = requestAnimationFrame(decel)
     }
     raf.current = requestAnimationFrame(decel)
@@ -160,7 +182,7 @@ function CambiaColor() {
   const [i, setI] = useState(0)
   return (
     <div style={{ textAlign: 'center' }}>
-      <button className="color-blob" style={{ background: PALETA_CALMA[i] }} onClick={() => setI((v) => (v + 1) % PALETA_CALMA.length)}>
+      <button className="color-blob" style={{ background: PALETA_CALMA[i] }} onClick={() => { setI((v) => (v + 1) % PALETA_CALMA.length); sonarBoop() }}>
         Toca para cambiar
       </button>
       <p className="trazo-hint-fija">{i + 1} / {PALETA_CALMA.length}</p>
@@ -172,11 +194,15 @@ const COMPONENTES = { burbujas: Burbujas, globo: Globo, trazo: Trazo, estrellas:
 
 export default function MiniJuegos({ onClose }) {
   const [activo, setActivo] = useState(null)
+  const [sonido, setSonido] = useState(sonidoActivo())
   const Juego = activo ? COMPONENTES[activo] : null
   const meta = JUEGOS.find((j) => j.id === activo)
 
   return (
     <Modal titulo={activo ? `${meta.ic} ${meta.t}` : '📱 Mini-juegos sensoriales'} onClose={onClose} label="Mini-juegos sensoriales">
+      <button className="btn sec sonido-toggle" onClick={() => setSonido(alternarSonido())}>
+        {sonido ? '🔊 Sonido activado' : '🔇 Sonido silenciado'}
+      </button>
       {!activo && (
         <>
           <p className="sub" style={{ fontSize: '.9rem' }}>
