@@ -15,12 +15,17 @@ export default function SOS({ onClose }) {
     if (!tel) { toast('Ingresa el teléfono de tu contacto'); return }
     setEstado('📍 Obteniendo tu ubicación…')
 
+    // Se abre la pestaña de inmediato (dentro del gesto del usuario) para que el
+    // navegador no la bloquee como popup; la redirigimos cuando la ubicación esté lista.
+    const ventana = via === 'wa' ? window.open('', '_blank') : null
+
     const abrir = (loc) => {
       const quien = nombre.trim() || 'Alguien que confía en ti'
       const texto = encodeURIComponent(`🆘 SOS de ${quien}. ${msj.trim()} ${loc}`)
       const url = via === 'wa' ? `https://wa.me/${tel}?text=${texto}` : `sms:${tel}?body=${texto}`
       setEstado('✅ Mensaje listo, abriendo…')
-      window.open(url, '_blank')
+      if (ventana) ventana.location.href = url
+      else window.location.href = url
     }
 
     if (!navigator.geolocation) { abrir('(No se pudo obtener la ubicación)'); return }

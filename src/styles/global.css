@@ -140,4 +140,6 @@ small.nota{display:block;color:var(--tinta-suave);font-size:.78rem;margin-top:6p
 .tip-card{background:var(--arena);border-radius:18px;padding:16px}
 .tip-card .autor{font-size:.78rem;color:var(--tinta-suave);margin-top:8px}
 footer{max-width:860px;margin:34px auto 0;padding:0 18px;font-size:.78rem;color:var(--tinta-suave);text-align:center}
+footer a{color:var(--bosque);font-weight:700;text-decoration:none}
+footer a:hover{text-decoration:underline}
 .toast{position:fixed;left:50%;bottom:100px;transform:translateX(-50%);background:var(--bosque);color:#fff;padding:12px 20px;border-radius:999px;font-size:.9rem;z-index:1500;box-shadow:var(--sombra);max-width:90vw;text-align:center}
