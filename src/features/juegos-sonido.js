@@ -18,7 +18,7 @@ export const alternarSonido = () => {
   return activo
 }
 
-const tono = ({ freq = 440, duracion = 0.15, tipo = 'sine', volumen = 0.12, deslizarA = null }) => {
+const tono = ({ freq = 440, duracion = 0.15, tipo = 'sine', volumen = 0.3, deslizarA = null }) => {
   if (!activo) return
   try {
     const audio = obtenerCtx()
@@ -35,11 +35,11 @@ const tono = ({ freq = 440, duracion = 0.15, tipo = 'sine', volumen = 0.12, desl
   } catch { /* Web Audio no disponible: se omite el sonido sin romper el juego */ }
 }
 
-export const sonarPop = () => tono({ freq: 320 + Math.random() * 160, duracion: 0.12, tipo: 'sine', deslizarA: 180, volumen: 0.14 })
-export const sonarSuelta = () => tono({ freq: 180, duracion: 0.1, tipo: 'sine', deslizarA: 90, volumen: 0.1 })
-export const sonarApretar = () => tono({ freq: 260, duracion: 0.12, tipo: 'triangle', deslizarA: 150, volumen: 0.12 })
-export const sonarSoltarGlobo = () => tono({ freq: 150, duracion: 0.15, tipo: 'triangle', deslizarA: 260, volumen: 0.1 })
-export const sonarTick = () => tono({ freq: 500 + Math.random() * 200, duracion: 0.06, tipo: 'sine', volumen: 0.07 })
-export const sonarChispa = () => tono({ freq: 550 + Math.random() * 350, duracion: 0.28, tipo: 'sine', volumen: 0.1 })
-export const sonarBoop = () => tono({ freq: 300, duracion: 0.18, tipo: 'sine', deslizarA: 420, volumen: 0.12 })
-export const sonarGiro = (velocidad) => tono({ freq: 220 + Math.min(Math.abs(velocidad) * 14, 400), duracion: 0.05, tipo: 'sine', volumen: 0.05 })
+export const sonarPop = () => tono({ freq: 320 + Math.random() * 160, duracion: 0.12, tipo: 'sine', deslizarA: 180, volumen: 0.38 })
+export const sonarSuelta = () => tono({ freq: 180, duracion: 0.1, tipo: 'sine', deslizarA: 90, volumen: 0.3 })
+export const sonarApretar = () => tono({ freq: 260, duracion: 0.12, tipo: 'triangle', deslizarA: 150, volumen: 0.32 })
+export const sonarSoltarGlobo = () => tono({ freq: 150, duracion: 0.15, tipo: 'triangle', deslizarA: 260, volumen: 0.3 })
+export const sonarTick = () => tono({ freq: 500 + Math.random() * 200, duracion: 0.06, tipo: 'sine', volumen: 0.22 })
+export const sonarChispa = () => tono({ freq: 550 + Math.random() * 350, duracion: 0.28, tipo: 'sine', volumen: 0.3 })
+export const sonarBoop = () => tono({ freq: 300, duracion: 0.18, tipo: 'sine', deslizarA: 420, volumen: 0.32 })
+export const sonarGiro = (velocidad) => tono({ freq: 220 + Math.min(Math.abs(velocidad) * 14, 400), duracion: 0.05, tipo: 'sine', volumen: 0.16 })
