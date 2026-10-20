@@ -3,10 +3,13 @@ import Modal from '../components/Modal'
 import Carita from '../components/Carita'
 import { ESTADOS_INICIALES, EXPRESIONES, COLORES, ANIMACIONES } from '../data/estados'
 import { useApp } from '../context/AppContext'
+import { useLocalStorage } from '../hooks/useLocalStorage'
 
 export default function Estado() {
   const { toast, setFullScreen } = useApp()
-  const [estados, setEstados] = useState(ESTADOS_INICIALES)
+  // Los estados creados se guardan en el dispositivo; los de ejemplo siempre se muestran
+  const [propios, setPropios] = useLocalStorage('estados', [])
+  const estados = [...propios, ...ESTADOS_INICIALES]
   const [modal, setModal] = useState(false)
   const [form, setForm] = useState({ n: '', expr: 'feliz', color: '#7FA792', anim: 'anim-flotar', msj: '' })
 
@@ -14,7 +17,7 @@ export default function Estado() {
 
   const crear = () => {
     if (!form.n.trim()) { toast('Ponle un nombre a tu estado 😊'); return }
-    setEstados([{ ...form, id: Date.now(), n: form.n.trim(), msj: form.msj.trim() }, ...estados])
+    setPropios([{ ...form, id: Date.now(), n: form.n.trim(), msj: form.msj.trim() }, ...propios])
     setModal(false)
     setForm({ n: '', expr: 'feliz', color: '#7FA792', anim: 'anim-flotar', msj: '' })
     toast('💚 Estado creado. Tócalo para mostrarlo en grande.')

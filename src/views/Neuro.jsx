@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { ADAPTACIONES } from '../data/adaptaciones'
 import { PICTOGRAMAS } from '../data/pictogramas'
 import { useApp } from '../context/AppContext'
+import { vozDisponible, hablar } from '../features/voz'
 
 export default function Neuro() {
   const { toast, setFullScreen } = useApp()
@@ -12,6 +13,11 @@ export default function Neuro() {
   const mostrar = () => {
     if (!tira.length) { toast('Agrega pictogramas primero 🖼️'); return }
     setFullScreen({ tipo: 'pictos', items: tira })
+  }
+
+  const leer = () => {
+    if (!tira.length) { toast('Agrega pictogramas primero 🖼️'); return }
+    hablar(tira.map(([, t]) => t).join(', '))
   }
 
   return (
@@ -48,6 +54,7 @@ export default function Neuro() {
       </div>
       <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginBottom: 6 }}>
         <button className="btn lila" onClick={mostrar}>👁️ Mostrar en grande</button>
+        {vozDisponible && <button className="btn azul" onClick={leer}>🔊 Leer en voz alta</button>}
         <button className="btn sec" onClick={() => setTira([])}>🗑️ Limpiar</button>
       </div>
 
