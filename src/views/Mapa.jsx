@@ -2,6 +2,31 @@ import { useEffect, useRef, useState } from 'react'
 import L from 'leaflet'
 import { ESPACIOS_INICIALES, FILTROS } from '../data/espacios'
 import { useApp } from '../context/AppContext'
+import Modal from '../components/Modal'
+
+/**
+ * Contenido del popup armado con nodos DOM y textContent (no con HTML
+ * interpolado): los nombres que escribe la comunidad nunca se interpretan
+ * como código, aunque traigan etiquetas <script> o atributos onerror.
+ */
+const crearPopup = (espacio) => {
+  const caja = document.createElement('div')
+  const linea = (tag, texto) => {
+    const el = document.createElement(tag)
+    el.textContent = texto
+    caja.append(el, document.createElement('br'))
+  }
+  linea('b', espacio.n)
+  linea('small', espacio.d)
+  linea('small', `🏷️ ${espacio.tags.join(' · ')}`)
+  const a = document.createElement('a')
+  a.href = `https://www.google.com/maps/dir/?api=1&destination=${Number(espacio.lat)},${Number(espacio.lng)}`
+  a.target = '_blank'
+  a.rel = 'noreferrer'
+  a.textContent = 'Cómo llegar →'
+  caja.append(a)
+  return caja
+}
 
 const iconoMarcador = (espacio) => {
   const esAlerta = espacio.tags.includes('sobreestimulacion') || espacio.tags.includes('sin-acceso')
@@ -21,10 +46,15 @@ export default function Mapa() {
   const mapaRef = useRef(null)
   const capaRef = useRef(null)
   const miMarkerRef = useRef(null)
-  const sugiriendoRef = useRef(false)
-  const tipoSugerenciaRef = useRef('calma')
+  const [modo, setModo] = useState(null) // null | 'calma' | 'alerta': esperando un toque en el mapa
+  const modoRef = useRef(null)
+  const [pendiente, setPendiente] = useState(null) // { lat, lng, tipo } del punto tocado
+  const [nombre, setNombre] = useState('')
+  const [motivo, setMotivo] = useState('sobreestimulacion')
   const [espacios, setEspacios] = useState(ESPACIOS_INICIALES)
   const [filtro, setFiltro] = useState('todos')
+
+  const cambiarModo = (m) => { modoRef.current = m; setModo(m) }
 
   // Inicializar mapa una sola vez
   useEffect(() => {
@@ -36,36 +66,15 @@ export default function Mapa() {
     mapaRef.current = mapa
 
     mapa.on('click', (e) => {
-      if (!sugiriendoRef.current) return
-      sugiriendoRef.current = false
-
-      if (tipoSugerenciaRef.current === 'alerta') {
-        const nombre = window.prompt('Nombre del sitio a reportar:')
-        if (!nombre) return
-        const esSobreestimulacion = window.confirm(
-          '¿El problema es sobreestimulación sensorial (ruido, luces, aglomeración)?\n\nAceptar = sobreestimulación · Cancelar = falta de accesibilidad',
-        )
-        setEspacios((prev) => [...prev, {
-          id: Date.now(), n: nombre, lat: e.latlng.lat, lng: e.latlng.lng,
-          tags: [esSobreestimulacion ? 'sobreestimulacion' : 'sin-acceso'],
-          d: 'Sitio reportado por la comunidad (pendiente de verificación).',
-        }])
-        toast('⚠️ Gracias por avisar. Ayudará a otras personas a evitarlo.')
-        return
-      }
-
-      const nombre = window.prompt('Nombre del espacio de calma:')
-      if (!nombre) return
-      setEspacios((prev) => [...prev, {
-        id: Date.now(), n: nombre, lat: e.latlng.lat, lng: e.latlng.lng,
-        tags: ['sugerido'], d: 'Espacio sugerido por la comunidad (pendiente de verificación).',
-      }])
-      toast('🌿 ¡Gracias! Tu espacio fue sugerido.')
+      if (!modoRef.current) return
+      setPendiente({ lat: e.latlng.lat, lng: e.latlng.lng, tipo: modoRef.current })
+      modoRef.current = null
+      setModo(null)
     })
 
     setTimeout(() => mapa.invalidateSize(), 150)
     return () => mapa.remove()
-  }, [toast])
+  }, [])
 
   // Repintar marcadores al cambiar filtro o espacios
   useEffect(() => {
@@ -76,10 +85,27 @@ export default function Mapa() {
       .filter((e) => filtro === 'todos' || e.tags.includes(filtro))
       .forEach((e) => {
         L.marker([e.lat, e.lng], { icon: iconoMarcador(e) })
-          .bindPopup(`<b>${e.n}</b><br><small>${e.d}</small><br><small>🏷️ ${e.tags.join(' · ')}</small><br><a href="https://www.google.com/maps/dir/?api=1&destination=${e.lat},${e.lng}" target="_blank" rel="noreferrer">Cómo llegar →</a>`)
+          .bindPopup(() => crearPopup(e))
           .addTo(capa)
       })
   }, [espacios, filtro])
+
+  const cerrarSugerencia = () => { setPendiente(null); setNombre(''); setMotivo('sobreestimulacion') }
+
+  const guardarSugerencia = () => {
+    const n = nombre.trim()
+    if (!n) { toast('Escribe el nombre del lugar'); return }
+    const esAlerta = pendiente.tipo === 'alerta'
+    setEspacios((prev) => [...prev, {
+      id: Date.now(), n, lat: pendiente.lat, lng: pendiente.lng,
+      tags: esAlerta ? [motivo] : ['sugerido'],
+      d: esAlerta
+        ? 'Sitio reportado por la comunidad (pendiente de verificación).'
+        : 'Espacio sugerido por la comunidad (pendiente de verificación).',
+    }])
+    toast(esAlerta ? '⚠️ Gracias por avisar. Ayudará a otras personas a evitarlo.' : '🌿 ¡Gracias! Tu espacio fue sugerido.')
+    cerrarSugerencia()
+  }
 
   const ubicarme = () => {
     if (!navigator.geolocation) { toast('Tu navegador no permite geolocalización'); return }
@@ -110,14 +136,45 @@ export default function Mapa() {
 
       <div className="mapa-acciones">
         <button className="btn azul" onClick={ubicarme}>📍 Mi ubicación</button>
-        <button className="btn sec" onClick={() => { sugiriendoRef.current = true; tipoSugerenciaRef.current = 'calma'; toast('Toca el punto del mapa donde está el espacio 🌿') }}>
+        <button className="btn sec" onClick={() => { cambiarModo('calma'); toast('Toca el punto del mapa donde está el espacio 🌿') }}>
           ➕ Sugerir un espacio
         </button>
-        <button className="btn sec" onClick={() => { sugiriendoRef.current = true; tipoSugerenciaRef.current = 'alerta'; toast('Toca el punto del mapa que quieres reportar ⚠️') }}>
+        <button className="btn sec" onClick={() => { cambiarModo('alerta'); toast('Toca el punto del mapa que quieres reportar ⚠️') }}>
           ⚠️ Reportar sitio a evitar
         </button>
       </div>
+      {modo && (
+        <div className="aviso" role="status">
+          👆 Toca el mapa donde está el {modo === 'alerta' ? 'sitio a reportar' : 'espacio de calma'}.{' '}
+          <button type="button" className="link-btn" onClick={() => cambiarModo(null)}>Cancelar</button>
+        </div>
+      )}
       <small className="nota">🌿 Calma · 💜 Sugerido por la comunidad · 🔵 Sitio a evitar (sobreestimulación o poca accesibilidad). Presiona un botón y luego toca el punto del mapa donde se encuentra.</small>
+
+      {pendiente && (
+        <Modal
+          titulo={pendiente.tipo === 'alerta' ? '⚠️ Reportar sitio a evitar' : '🌿 Sugerir espacio de calma'}
+          onClose={cerrarSugerencia}
+          label={pendiente.tipo === 'alerta' ? 'Reportar sitio' : 'Sugerir espacio'}
+        >
+          <label htmlFor="sugNombre">Nombre del lugar</label>
+          <input id="sugNombre" value={nombre} maxLength={80} onChange={(e) => setNombre(e.target.value)}
+            placeholder={pendiente.tipo === 'alerta' ? 'Ej: Terminal de buses' : 'Ej: Plaza de la biblioteca'} />
+          {pendiente.tipo === 'alerta' && (
+            <fieldset className="opciones">
+              <legend>¿Cuál es el problema?</legend>
+              <label><input type="radio" name="motivo" value="sobreestimulacion" checked={motivo === 'sobreestimulacion'}
+                onChange={(e) => setMotivo(e.target.value)} /> ⚡ Sobreestimulación (ruido, luces, aglomeración)</label>
+              <label><input type="radio" name="motivo" value="sin-acceso" checked={motivo === 'sin-acceso'}
+                onChange={(e) => setMotivo(e.target.value)} /> 🚫 Poca accesibilidad (movilidad reducida, silla de ruedas)</label>
+            </fieldset>
+          )}
+          <button className="btn blq" onClick={guardarSugerencia}>
+            {pendiente.tipo === 'alerta' ? 'Reportar sitio' : 'Sugerir espacio'}
+          </button>
+          <small className="nota">Las sugerencias quedan pendientes de verificación antes de mostrarse como espacios confirmados.</small>
+        </Modal>
+      )}
     </section>
   )
 }

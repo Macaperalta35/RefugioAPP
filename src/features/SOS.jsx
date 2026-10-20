@@ -1,12 +1,15 @@
 import { useState } from 'react'
 import Modal from '../components/Modal'
 import { useApp } from '../context/AppContext'
+import { useLocalStorage } from '../hooks/useLocalStorage'
 
 /** SOS: genera un mensaje con georreferenciación para WhatsApp o SMS */
 export default function SOS({ onClose }) {
   const { toast } = useApp()
-  const [nombre, setNombre] = useState('')
-  const [fono, setFono] = useState('')
+  // Nombre y contacto quedan guardados solo en este dispositivo, para no
+  // tener que escribirlos de nuevo en plena crisis.
+  const [nombre, setNombre] = useLocalStorage('sos-nombre', '')
+  const [fono, setFono] = useLocalStorage('sos-fono', '')
   const [msj, setMsj] = useState('Necesito apoyo ahora. Esta es mi ubicación:')
   const [estado, setEstado] = useState('')
 
@@ -36,6 +39,11 @@ export default function SOS({ onClose }) {
     )
   }
 
+  const olvidar = () => {
+    setNombre(''); setFono('')
+    toast('🗑️ Contacto borrado de este dispositivo')
+  }
+
   return (
     <Modal titulo="🆘 SOS con mi ubicación" onClose={onClose} label="SOS contacto de emergencia">
       <p className="sub" style={{ fontSize: '.9rem' }}>
@@ -50,7 +58,11 @@ export default function SOS({ onClose }) {
       {estado && <div style={{ marginTop: 10, fontSize: '.85rem', color: 'var(--tinta-suave)' }}>{estado}</div>}
       <button className="btn rojo blq" onClick={() => enviar('wa')}>📲 Enviar por WhatsApp</button>
       <button className="btn sec blq" onClick={() => enviar('sms')}>✉️ Enviar por SMS</button>
-      <small className="nota">Tu ubicación se obtiene solo con tu permiso y se comparte como enlace de Google Maps. Los datos permanecen en tu dispositivo durante la sesión.</small>
+      <small className="nota">
+        Tu ubicación se obtiene solo con tu permiso y se comparte como enlace de Google Maps.
+        Tu nombre y el teléfono del contacto se guardan <b>solo en este dispositivo</b>, nunca se envían a Refugio.
+        {(nombre || fono) && <> <button type="button" className="link-btn" onClick={olvidar}>Olvidar contacto</button></>}
+      </small>
     </Modal>
   )
 }

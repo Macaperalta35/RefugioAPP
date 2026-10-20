@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AppProvider } from './context/AppContext'
 import Header from './components/Header'
 import NavTabs from './components/NavTabs'
@@ -12,12 +12,29 @@ import Estado from './views/Estado'
 import Profesionales from './views/Profesionales'
 import { EMERGENCIA, LINEAS } from './data/lineas'
 
+const VISTAS = ['inicio', 'mapa', 'calma', 'neuro', 'estado', 'pros']
+const vistaDesdeHash = () => {
+  const v = window.location.hash.slice(1)
+  return VISTAS.includes(v) ? v : 'inicio'
+}
+
 export default function App() {
-  const [vista, setVista] = useState('inicio')
+  // La vista vive en la URL (#mapa, #calma…): el botón atrás vuelve a la
+  // pestaña anterior y se pueden compartir enlaces directos.
+  const [vista, setVista] = useState(vistaDesdeHash)
+
+  useEffect(() => {
+    const alCambiar = () => {
+      setVista(vistaDesdeHash())
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+    window.addEventListener('hashchange', alCambiar)
+    return () => window.removeEventListener('hashchange', alCambiar)
+  }, [])
 
   const irA = (v) => {
-    setVista(v)
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+    if (v === vista) window.scrollTo({ top: 0, behavior: 'smooth' })
+    else window.location.hash = v
   }
 
   return (
