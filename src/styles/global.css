@@ -67,6 +67,23 @@ section.view{animation:apar .35s ease}
 .modal:focus,.full-estado:focus{outline:none}
 .btn-voz{margin-top:4px}
 .opciones{border:0;padding:0;margin:12px 0 0}.opciones legend{font-weight:700;font-size:.88rem;margin-bottom:6px;color:var(--bosque)}.opciones label{display:flex;gap:8px;align-items:flex-start;font-weight:400;margin:6px 0}.opciones input{width:auto;padding:0;margin-top:4px}
+.btn-tarjeta{display:block;width:100%;max-width:440px;margin:-8px auto 18px;background:var(--tarjeta);color:var(--bosque);border:2px solid var(--salvia);font-family:var(--fd);font-weight:700;font-size:1rem;padding:14px;border-radius:var(--radio)}
+.tarjeta-resumen{margin-top:16px}.tarjeta-resumen h3{margin-bottom:4px}.tarjeta-resumen p{font-size:.9rem;color:var(--tinta-suave)}
+.tarjeta-resumen .acciones{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.frases{display:flex;flex-wrap:wrap;gap:8px}
+.frase-nueva{display:flex;gap:8px;margin-top:10px}.frase-nueva input{flex:1}.frase-nueva .btn{padding:10px 16px}
+.tarjeta-full{position:fixed;inset:0;z-index:3000;background:linear-gradient(160deg,#3B6357,#26443A);overflow-y:auto;padding:max(16px,env(safe-area-inset-top)) 16px 24px}
+.tarjeta-full:focus{outline:none}
+.tarjeta-hoja{background:#FFFFFF;color:#1F2B26;max-width:560px;margin:0 auto;border-radius:24px;padding:20px 20px 24px;box-shadow:0 10px 40px rgba(0,0,0,.25)}
+.tarjeta-cab{display:flex;align-items:center;justify-content:space-between;font-family:var(--fd);font-weight:700;color:#2F5347;font-size:1rem}
+.tarjeta-cab .cerrar{position:static;background:#E4ECE8;color:#1F2B26}
+.tarjeta-hoja .tarjeta-mensaje{font-family:var(--fd);font-weight:700;font-size:clamp(1.45rem,6vw,2rem);line-height:1.3;color:#1F2B26;margin:16px 0 8px}
+.tarjeta-hoja .tarjeta-quien{font-size:1.1rem;font-weight:700;color:#2F5347}
+.tarjeta-bloque{border-radius:16px;padding:14px 16px;margin-top:14px}
+.tarjeta-bloque h3{font-size:1.05rem;margin-bottom:6px;color:#1F2B26}
+.tarjeta-bloque ul{margin:0;padding-left:1.2em}.tarjeta-hoja .tarjeta-bloque li,.tarjeta-hoja .tarjeta-bloque p{color:#1F2B26;font-size:1.15rem;line-height:1.5}
+.tarjeta-bloque.ayuda{background:#E6F2EC}.tarjeta-bloque.evitar{background:#FBE9E7}.tarjeta-bloque.medico{background:#EEEAF7}
+.tarjeta-acciones{margin-top:14px}
 .card.vacio{text-align:center;color:var(--tinta-suave);margin:6px 0 4px}
 .link-btn{background:none;padding:0;color:inherit;text-decoration:underline;font:inherit;cursor:pointer}
 .cerrar{position:absolute;right:0;top:0;background:var(--niebla);border-radius:50%;width:38px;height:38px;font-size:1.1rem;color:var(--tinta)}
