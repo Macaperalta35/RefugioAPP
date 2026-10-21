@@ -38,24 +38,6 @@ export default defineConfig({
       workbox: {
         globPatterns: ['**/*.{js,css,html,svg,png,woff2}'],
         cleanupOutdatedCaches: true,
-        runtimeCaching: [
-          {
-            // Hoja de estilos de Google Fonts: se usa la copia guardada y se actualiza en segundo plano
-            urlPattern: ({ url }) => url.origin === 'https://fonts.googleapis.com',
-            handler: 'StaleWhileRevalidate',
-            options: { cacheName: 'google-fonts-css' },
-          },
-          {
-            // Archivos de fuentes: no cambian, se guardan hasta 1 año
-            urlPattern: ({ url }) => url.origin === 'https://fonts.gstatic.com',
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'google-fonts-archivos',
-              expiration: { maxEntries: 20, maxAgeSeconds: 60 * 60 * 24 * 365 },
-              cacheableResponse: { statuses: [0, 200] },
-            },
-          },
-        ],
       },
     }),
   ],
