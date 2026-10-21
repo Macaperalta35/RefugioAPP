@@ -84,6 +84,13 @@ section.view{animation:apar .35s ease}
 .tarjeta-bloque ul{margin:0;padding-left:1.2em}.tarjeta-hoja .tarjeta-bloque li,.tarjeta-hoja .tarjeta-bloque p{color:#1F2B26;font-size:1.15rem;line-height:1.5}
 .tarjeta-bloque.ayuda{background:#E6F2EC}.tarjeta-bloque.evitar{background:#FBE9E7}.tarjeta-bloque.medico{background:#EEEAF7}
 .tarjeta-acciones{margin-top:14px}
+.testers-requisitos{list-style:none;padding:0;margin:16px 0;display:grid;gap:8px}
+.testers-requisitos li{display:flex;gap:10px;align-items:flex-start;font-size:.95rem}.testers-requisitos span{flex:none}
+.testers-form{margin-top:6px}
+.testers-acepto{display:flex;gap:10px;align-items:flex-start;font-weight:400;font-size:.85rem;color:var(--tinta);margin-top:16px}
+.testers-acepto input{width:auto;margin-top:3px;flex:none}
+.testers-fallback{margin-top:16px}.testers-fallback p{margin:4px 0 10px}
+.testers-fallback pre{white-space:pre-wrap;word-break:break-word;font-family:var(--fb);font-size:.82rem;background:var(--bruma);border-radius:12px;padding:12px;margin-bottom:12px;user-select:all}
 .card.vacio{text-align:center;color:var(--tinta-suave);margin:6px 0 4px}
 .link-btn{background:none;padding:0;color:inherit;text-decoration:underline;font:inherit;cursor:pointer}
 .cerrar{position:absolute;right:0;top:0;background:var(--niebla);border-radius:50%;width:38px;height:38px;font-size:1.1rem;color:var(--tinta)}
