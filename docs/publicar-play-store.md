@@ -103,8 +103,8 @@ Como Refugio vive en `/RefugioAPP/`, se necesita un repositorio de sitio de usua
 - Descripción breve (máx. 80 caracteres), por ejemplo:
   *Espacios de calma, técnicas para crisis de ansiedad y apoyo neurodivergente.*
 - Descripción completa: puedes partir de la tabla de módulos del `README.md`. Incluye el aviso de que no reemplaza la atención de urgencia (131 SAMU).
-- Ícono 512×512: `public/app-icon-maskable-512.png`.
-- Gráfico de funciones 1024×500 (obligatorio).
+- Ícono 512×512: `docs/marca/play-icono-512.png`.
+- Gráfico de funciones 1024×500 (obligatorio): `docs/marca/play-grafico-funciones-1024x500.png`.
 - Mínimo 2 capturas de teléfono. Lo más fácil es sacarlas desde el teléfono con la app instalada.
 - Categoría: **Salud y bienestar**.
 - Datos de contacto (obligatorio): correo **macaperalta35@gmail.com**, el mismo de `src/data/contacto.js`.
