@@ -1,5 +1,7 @@
-// Espacios de calma iniciales. En el futuro: reemplazar por fetch a una API.
-export const ESPACIOS_INICIALES = [
+// Espacios publicados. Las sugerencias y reportes llegan por correo (ver data/contacto.js)
+// y se agregan aquí tras verificarlos. En el futuro: reemplazar por fetch a una API.
+// Formato: { id, n, lat, lng, tags: ['naturaleza', 'silencio', …], d: 'Descripción' }
+export const ESPACIOS = [
   { id: 1, n: 'Parque Ecuador', lat: -36.8329, lng: -73.0522, tags: ['naturaleza', 'silencio', 'accesible'], d: 'Amplio parque urbano con sombra y bancas, ideal para caminar y regular.' },
   { id: 2, n: 'Biblioteca Municipal de Concepción', lat: -36.827, lng: -73.0503, tags: ['techado', 'silencio', 'accesible', 'sensorial'], d: 'Espacio techado, silencioso y de baja estimulación.' },
   { id: 3, n: 'Laguna Redonda', lat: -36.8065, lng: -73.057, tags: ['naturaleza', 'silencio'], d: 'Laguna tranquila con senderos y aves para observar.' },
