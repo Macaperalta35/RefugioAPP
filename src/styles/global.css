@@ -71,6 +71,7 @@ section.view{animation:apar .35s ease}
 .link-btn{background:none;padding:0;color:inherit;text-decoration:underline;font:inherit;cursor:pointer}
 .cerrar{position:absolute;right:0;top:0;background:var(--niebla);border-radius:50%;width:38px;height:38px;font-size:1.1rem;color:var(--tinta)}
 .btn{background:var(--salvia);color:#fff;font-weight:700;padding:13px 22px;border-radius:999px;font-size:.95rem}
+a.btn{text-decoration:none}
 .btn.sec{background:var(--niebla);color:var(--bosque)}
 .btn.rojo{background:var(--sos)}
 .btn.lila{background:var(--lavanda);color:#2C2440}
@@ -96,6 +97,14 @@ small.nota{display:block;color:var(--tinta-suave);font-size:.78rem;margin-top:6p
 .filtros{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
 .chipf{background:var(--niebla);border-radius:999px;padding:8px 14px;font-size:.85rem;color:var(--tinta)}
 .chipf.on{background:var(--salvia);color:#fff;font-weight:700}
+.lista-titulo{margin-top:26px;font-size:1.05rem}
+.lista-espacios{list-style:none;padding:0;margin:10px 0 0;display:grid;gap:12px}
+.lista-espacios h4{color:var(--bosque);font-size:1rem;margin-bottom:4px}
+.lista-espacios p{font-size:.88rem;color:var(--tinta-suave)}
+.lista-espacios .dist{font-size:.8rem;font-weight:400;color:var(--salvia);margin-left:6px;white-space:nowrap}
+.lista-espacios .etiquetas{font-size:.78rem;margin-top:4px}
+.lista-espacios .acciones{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.lista-espacios .acciones .btn{padding:8px 14px;font-size:.85rem}
 .mapa-acciones{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
 
 /* ============ NEURO / PICTOGRAMAS ============ */

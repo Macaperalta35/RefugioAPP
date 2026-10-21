@@ -29,6 +29,19 @@ const crearPopup = (espacio) => {
   return caja
 }
 
+const ETIQUETAS = Object.fromEntries(FILTROS.map((f) => [f.id, f.label]))
+
+/** Distancia en km entre dos puntos (fórmula de Haversine) */
+const distanciaKm = (a, b) => {
+  const rad = (g) => (g * Math.PI) / 180
+  const dLat = rad(b.lat - a.lat), dLng = rad(b.lng - a.lng)
+  const h = Math.sin(dLat / 2) ** 2 + Math.cos(rad(a.lat)) * Math.cos(rad(b.lat)) * Math.sin(dLng / 2) ** 2
+  return 2 * 6371 * Math.asin(Math.sqrt(h))
+}
+
+const formatoDistancia = (km) =>
+  km < 1 ? `a ${Math.round(km * 1000 / 50) * 50} m` : `a ${km.toLocaleString('es-CL', { maximumFractionDigits: km < 10 ? 1 : 0 })} km`
+
 const iconoMarcador = (espacio) => {
   const esAlerta = espacio.tags.includes('sobreestimulacion') || espacio.tags.includes('sin-acceso')
   const bg = esAlerta ? '#3F7CA6' : '#7FA792'
@@ -53,6 +66,8 @@ export default function Mapa() {
   const [motivo, setMotivo] = useState('sobreestimulacion')
   const [detalle, setDetalle] = useState('')
   const [filtro, setFiltro] = useState('todos')
+  const [miPosicion, setMiPosicion] = useState(null) // { lat, lng } tras tocar "Mi ubicación"
+  const marcadoresRef = useRef({})
 
   const cambiarModo = (m) => { modoRef.current = m; setModo(m) }
 
@@ -76,19 +91,32 @@ export default function Mapa() {
     return () => mapa.remove()
   }, [])
 
-  // Repintar marcadores al cambiar filtro o espacios
+  const visibles = ESPACIOS.filter((e) => filtro === 'todos' || e.tags.includes(filtro))
+  // Lista accesible (alternativa al mapa para lectores de pantalla): por cercanía si se conoce la ubicación
+  const lista = miPosicion
+    ? visibles.map((e) => ({ ...e, km: distanciaKm(miPosicion, e) })).sort((a, b) => a.km - b.km)
+    : visibles
+
+  // Repintar marcadores al cambiar el filtro
   useEffect(() => {
     const capa = capaRef.current
     if (!capa) return
     capa.clearLayers()
+    marcadoresRef.current = {}
     ESPACIOS
       .filter((e) => filtro === 'todos' || e.tags.includes(filtro))
       .forEach((e) => {
-        L.marker([e.lat, e.lng], { icon: iconoMarcador(e) })
+        marcadoresRef.current[e.id] = L.marker([e.lat, e.lng], { icon: iconoMarcador(e) })
           .bindPopup(() => crearPopup(e))
           .addTo(capa)
       })
   }, [filtro])
+
+  const verEnMapa = (e) => {
+    cajaRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    mapaRef.current.setView([e.lat, e.lng], 16)
+    marcadoresRef.current[e.id]?.openPopup()
+  }
 
   const cerrarSugerencia = () => { setPendiente(null); setNombre(''); setMotivo('sobreestimulacion'); setDetalle('') }
 
@@ -119,6 +147,7 @@ export default function Mapa() {
     if (!navigator.geolocation) { toast('Tu navegador no permite geolocalización'); return }
     navigator.geolocation.getCurrentPosition((p) => {
       const { latitude: la, longitude: lo } = p.coords
+      setMiPosicion({ lat: la, lng: lo })
       mapaRef.current.setView([la, lo], 15)
       if (miMarkerRef.current) mapaRef.current.removeLayer(miMarkerRef.current)
       miMarkerRef.current = L.circleMarker([la, lo], { radius: 9, color: '#B7A9D6', fillColor: '#B7A9D6', fillOpacity: .9 })
@@ -151,6 +180,25 @@ export default function Mapa() {
           ⚠️ Reportar sitio a evitar
         </button>
       </div>
+      <h3 className="lista-titulo">
+        {miPosicion ? 'Espacios ordenados por cercanía' : 'Lista de espacios'} ({lista.length})
+      </h3>
+      {!miPosicion && <small className="nota">Toca «📍 Mi ubicación» para ordenarlos del más cercano al más lejano.</small>}
+      <ul className="lista-espacios">
+        {lista.map((e) => (
+          <li key={e.id} className="card">
+            <h4>{e.n} {e.km !== undefined && <span className="dist">{formatoDistancia(e.km)}</span>}</h4>
+            <p>{e.d}</p>
+            <p className="etiquetas">{e.tags.map((t) => ETIQUETAS[t] || t).join(' · ')}</p>
+            <div className="acciones">
+              <button className="btn sec" onClick={() => verEnMapa(e)}>🗺️ Ver en el mapa</button>
+              <a className="btn azul" href={`https://www.google.com/maps/dir/?api=1&destination=${e.lat},${e.lng}`} target="_blank" rel="noreferrer">🧭 Cómo llegar</a>
+            </div>
+          </li>
+        ))}
+        {lista.length === 0 && <li className="card vacio">No hay espacios con este filtro.</li>}
+      </ul>
+
       {modo && (
         <div className="aviso" role="status">
           👆 Toca el mapa donde está el {modo === 'alerta' ? 'sitio a reportar' : 'espacio de calma'}.{' '}
