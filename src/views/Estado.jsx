@@ -4,6 +4,7 @@ import Carita from '../components/Carita'
 import { ESTADOS_INICIALES, EXPRESIONES, COLORES, ANIMACIONES } from '../data/estados'
 import { useApp } from '../context/AppContext'
 import { useLocalStorage } from '../hooks/useLocalStorage'
+import { TarjetaSeccion } from '../features/TarjetaCrisis'
 
 export default function Estado() {
   const { toast, setFullScreen } = useApp()
@@ -37,6 +38,8 @@ export default function Estado() {
       <p className="eyebrow">Comunicación sin palabras</p>
       <h2>Mi estado de ánimo 😊</h2>
       <p className="sub">Elige o crea un estado con su propia caricatura animada y muéstralo en pantalla completa. Ideal cuando hablar cuesta demasiado.</p>
+
+      <TarjetaSeccion toast={toast} />
 
       <div style={{ marginTop: 14 }}>
         <button className="btn" onClick={() => setModal(true)}>➕ Crear mi propio estado</button>
