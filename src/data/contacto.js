@@ -3,6 +3,7 @@ export const CREADORA = {
   nombre: 'Lilith',
   correo: 'macaperalta35@gmail.com',
   github: 'https://github.com/Macaperalta35',
+  instagram: 'refugioapp_chile',
 }
 
 /** Enlace mailto con asunto y cuerpo ya escritos para enviar una solicitud a la creadora */

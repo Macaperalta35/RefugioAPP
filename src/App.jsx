@@ -50,11 +50,13 @@ export default function App() {
         {vista === 'pros' && <Profesionales />}
       </main>
       <footer>
-        <p><b>Refugio</b> · Prototipo con fines educativos y sociales · Chile 🇨🇱</p>
+        <p><b>Refugio</b> · Proyecto de impacto social · Chile 🇨🇱</p>
         <p>Ante una emergencia vital llama al {EMERGENCIA.tel} ({EMERGENCIA.nombre}) · {LINEAS.map((l) => l.nombre).join(' · ')}</p>
         <p>
           Creado por <a href={CREADORA.github} target="_blank" rel="noreferrer">{CREADORA.nombre}</a> ·
-          Contacto: <a href={`mailto:${CREADORA.correo}`}>{CREADORA.correo}</a> · <a href="./privacidad.html">Privacidad</a>
+          Contacto: <a href={`mailto:${CREADORA.correo}`}>{CREADORA.correo}</a> ·
+          Instagram: <a href={`https://www.instagram.com/${CREADORA.instagram}/`} target="_blank" rel="noreferrer">@{CREADORA.instagram}</a> ·{' '}
+          <a href="./privacidad.html">Privacidad</a>
         </p>
       </footer>
       <NavTabs vista={vista} irA={irA} />

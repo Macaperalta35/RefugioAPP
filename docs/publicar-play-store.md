@@ -31,7 +31,7 @@ nuevas a Play.
 
 Play rechaza apps de salud con afirmaciones engañosas. Antes de pasar a producción:
 
-- Las solicitudes de profesionales y tiendas llegan por correo a la creadora (`src/data/contacto.js`). Para publicar una, agrégala a `src/data/profesionales.js` o `src/data/emprendedores.js` y marca `ver: true` solo si verificaste el registro.
+- Las solicitudes de profesionales y tiendas, y las sugerencias y reportes del mapa, llegan por correo a la creadora (`src/data/contacto.js`). Para publicarlas, agrégalas a `src/data/profesionales.js`, `src/data/emprendedores.js` o `src/data/espacios.js`. En profesionales, marca `ver: true` solo si verificaste el registro.
 - ✅ Se eliminaron los profesionales, tips y tiendas de ejemplo; las listas parten vacías y muestran un mensaje invitando a enviar la solicitud.
 - `src/data/espacios.js`: confirmar que los lugares y sus etiquetas sean correctos.
 
@@ -103,8 +103,8 @@ Como Refugio vive en `/RefugioAPP/`, se necesita un repositorio de sitio de usua
 - Descripción breve (máx. 80 caracteres), por ejemplo:
   *Espacios de calma, técnicas para crisis de ansiedad y apoyo neurodivergente.*
 - Descripción completa: puedes partir de la tabla de módulos del `README.md`. Incluye el aviso de que no reemplaza la atención de urgencia (131 SAMU).
-- Ícono 512×512: `public/app-icon-maskable-512.png`.
-- Gráfico de funciones 1024×500 (obligatorio).
+- Ícono 512×512: `docs/marca/play-icono-512.png`.
+- Gráfico de funciones 1024×500 (obligatorio): `docs/marca/play-grafico-funciones-1024x500.png`.
 - Mínimo 2 capturas de teléfono. Lo más fácil es sacarlas desde el teléfono con la app instalada.
 - Categoría: **Salud y bienestar**.
 - Datos de contacto (obligatorio): correo **macaperalta35@gmail.com**, el mismo de `src/data/contacto.js`.
@@ -118,7 +118,7 @@ Como Refugio vive en `/RefugioAPP/`, se necesita un repositorio de sitio de usua
 | Acceso a la app | Toda la funcionalidad está disponible sin restricciones |
 | Clasificación de contenido | Completar el cuestionario IARC (sin violencia ni contenido sexual) |
 | Público objetivo | 13 años o más. Incluir menores de 13 activa los requisitos del programa Familias. |
-| Seguridad de los datos | **La app no recopila ni comparte datos**: todo queda en el dispositivo. El SOS y las solicitudes de profesionales y tiendas los envía la propia persona con su app de mensajería o de correo. Si en el futuro se agrega un backend, este formulario hay que actualizarlo. |
+| Seguridad de los datos | **La app no recopila ni comparte datos**: todo queda en el dispositivo. El SOS, las solicitudes de profesionales y tiendas y las sugerencias del mapa los envía la propia persona con su app de mensajería o de correo. Si en el futuro se agrega un backend, este formulario hay que actualizarlo. |
 | Apps de salud | Declarar la categoría de **salud mental y conductual** |
 | App gubernamental / Finanzas / COVID-19 | No |
 
@@ -132,8 +132,28 @@ Como Refugio vive en `/RefugioAPP/`, se necesita un repositorio de sitio de usua
 
 ## 8. Producción
 
-Al cumplir los 14 días, en *Panel → Solicitar acceso a producción* responde el cuestionario sobre la prueba.
-La revisión de Google puede tardar desde unos días hasta un par de semanas.
+### 8.1 Solicitar acceso a producción
+Solo para cuentas personales nuevas, al cumplir los 14 días de la prueba cerrada:
+
+1. *Panel → Solicitar acceso a producción*.
+2. Responde el cuestionario. Google pregunta cómo reclutaste a los testers, qué te comentaron, qué cambiaste a partir de eso y por qué la app está lista. Responde con detalle: las respuestas genéricas son motivo frecuente de rechazo.
+3. Google responde en unos días. Si la rechaza, normalmente pide extender la prueba cerrada.
+
+### 8.2 Crear la versión de producción
+1. *Prueba y lanzamiento → Producción → Crear versión*.
+2. **Agregar desde la biblioteca**: elige el mismo `.aab` que probaste en la prueba cerrada. No hace falta generar otro.
+3. Escribe las **notas de la versión**, por ejemplo: *Primera versión de Refugio: espacios de calma, técnicas para crisis, pictogramas y SOS.*
+4. *Países y regiones*: agrega **Chile**, o más países si quieres.
+5. *Revisar versión → Iniciar lanzamiento a producción*.
+
+### 8.3 Revisión de Google
+- La primera revisión suele tardar de unos días a una semana. En apps de salud puede tomar más.
+- Para ver el estado, entra a *Panel → Resumen de publicación*. Si Google pide cambios, lo indica ahí y por correo.
+- Una vez aprobada, la app aparece en Play Store en unas horas.
+
+### 8.4 Después de publicar
+- Para revisar errores (ANR, fallos) y reseñas, entra a *Calidad → Android vitals* y *Calificaciones y reseñas*.
+- Responde las reseñas, sobre todo las que reporten problemas en una crisis.
 
 ---
 
