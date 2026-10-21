@@ -51,7 +51,7 @@ export default function App() {
       <footer>
         <p><b>Refugio</b> · Prototipo con fines educativos y sociales · Chile 🇨🇱</p>
         <p>Ante una emergencia vital llama al {EMERGENCIA.tel} ({EMERGENCIA.nombre}) · {LINEAS.map((l) => l.nombre).join(' · ')}</p>
-        <p>Creado por <a href="https://github.com/Macaperalta35" target="_blank" rel="noreferrer">Lilith</a></p>
+        <p>Creado por <a href="https://github.com/Macaperalta35" target="_blank" rel="noreferrer">Lilith</a> · <a href="./privacidad.html">Privacidad</a></p>
       </footer>
       <NavTabs vista={vista} irA={irA} />
       <Toast />
