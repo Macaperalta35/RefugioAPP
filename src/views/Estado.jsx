@@ -11,6 +11,7 @@ export default function Estado() {
   const [propios, setPropios] = useLocalStorage('estados', [])
   const estados = [...propios, ...ESTADOS_INICIALES]
   const [modal, setModal] = useState(false)
+  const [borrando, setBorrando] = useState(null) // estado propio que se está por eliminar
   const [form, setForm] = useState({ n: '', expr: 'feliz', color: '#7FA792', anim: 'anim-flotar', msj: '' })
 
   const set = (k) => (e) => setForm({ ...form, [k]: e.target.value })
@@ -22,6 +23,14 @@ export default function Estado() {
     setForm({ n: '', expr: 'feliz', color: '#7FA792', anim: 'anim-flotar', msj: '' })
     toast('💚 Estado creado. Tócalo para mostrarlo en grande.')
   }
+
+  const eliminar = () => {
+    setPropios(propios.filter((e) => e.id !== borrando.id))
+    setBorrando(null)
+    toast('🗑️ Estado eliminado')
+  }
+
+  const esPropio = (e) => propios.some((p) => p.id === e.id)
 
   return (
     <section className="view">
@@ -35,12 +44,25 @@ export default function Estado() {
 
       <div className="estados-grid">
         {estados.map((e) => (
-          <button key={e.id} className="estado-card" onClick={() => setFullScreen({ tipo: 'estado', estado: e })}>
-            <div className={`carita ${e.anim}`}><Carita expr={e.expr} color={e.color} /></div>
-            <div className="nom">{e.n}</div>
-          </button>
+          <div key={e.id} className="estado-item">
+            <button className="estado-card" onClick={() => setFullScreen({ tipo: 'estado', estado: e })}>
+              <div className={`carita ${e.anim}`}><Carita expr={e.expr} color={e.color} /></div>
+              <div className="nom">{e.n}</div>
+            </button>
+            {esPropio(e) && (
+              <button className="estado-borrar" onClick={() => setBorrando(e)} aria-label={`Eliminar el estado ${e.n}`} title="Eliminar">🗑️</button>
+            )}
+          </div>
         ))}
       </div>
+
+      {borrando && (
+        <Modal titulo="🗑️ Eliminar estado" onClose={() => setBorrando(null)} label="Confirmar eliminación de estado">
+          <p className="sub" style={{ fontSize: '.92rem' }}>¿Quieres eliminar «{borrando.n}»? Se borrará de este dispositivo.</p>
+          <button className="btn rojo blq" onClick={eliminar}>Sí, eliminar</button>
+          <button className="btn sec blq" onClick={() => setBorrando(null)}>Cancelar</button>
+        </Modal>
+      )}
 
       {modal && (
         <Modal titulo="➕ Crear mi estado" onClose={() => setModal(false)} label="Crear estado de ánimo">

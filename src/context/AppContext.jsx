@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useCallback, useEffect } from 'react'
+import { createContext, useContext, useState, useCallback, useEffect, useRef } from 'react'
 import { useLocalStorage } from '../hooks/useLocalStorage'
 
 const AppContext = createContext(null)
@@ -17,9 +17,12 @@ export function AppProvider({ children }) {
     setTemaElegido(theme === 'light' ? 'dark' : 'light')
   }, [theme, setTemaElegido])
 
+  // Un aviso nuevo reinicia el temporizador, así no lo borra el del aviso anterior
+  const toastTimer = useRef(null)
   const toast = useCallback((msg) => {
+    clearTimeout(toastTimer.current)
     setToastMsg(msg)
-    setTimeout(() => setToastMsg(null), 3200)
+    toastTimer.current = setTimeout(() => setToastMsg(null), 3200)
   }, [])
 
   return (

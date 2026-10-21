@@ -120,6 +120,8 @@ small.nota{display:block;color:var(--tinta-suave);font-size:.78rem;margin-top:6p
 
 /* ============ ESTADOS / CARICATURAS ============ */
 .estados-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;margin-top:14px}
+.estado-item{position:relative;display:flex}.estado-item .estado-card{flex:1}
+.estado-borrar{position:absolute;top:6px;right:6px;width:34px;height:34px;border-radius:50%;background:var(--niebla);font-size:.95rem;display:grid;place-items:center}
 .estado-card{background:var(--tarjeta);border:1.5px solid var(--borde);border-radius:20px;padding:16px 10px;text-align:center;transition:transform .15s}
 .estado-card:hover{transform:translateY(-4px)}
 .estado-card .nom{font-weight:700;font-size:.9rem;margin-top:6px;color:var(--bosque)}
