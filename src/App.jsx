@@ -10,10 +10,12 @@ import Calma from './views/Calma'
 import Neuro from './views/Neuro'
 import Estado from './views/Estado'
 import Profesionales from './views/Profesionales'
+import Testers from './views/Testers'
 import { EMERGENCIA, LINEAS } from './data/lineas'
 import { CREADORA } from './data/contacto'
 
-const VISTAS = ['inicio', 'mapa', 'calma', 'neuro', 'estado', 'pros']
+// 'testers' no está en la barra inferior: se abre con el enlace directo #testers
+const VISTAS = ['inicio', 'mapa', 'calma', 'neuro', 'estado', 'pros', 'testers']
 const vistaDesdeHash = () => {
   const v = window.location.hash.slice(1)
   return VISTAS.includes(v) ? v : 'inicio'
@@ -48,6 +50,7 @@ export default function App() {
         {vista === 'neuro' && <Neuro />}
         {vista === 'estado' && <Estado />}
         {vista === 'pros' && <Profesionales />}
+        {vista === 'testers' && <Testers />}
       </main>
       <footer>
         <p><b>Refugio</b> · Proyecto de impacto social · Chile 🇨🇱</p>
@@ -56,7 +59,7 @@ export default function App() {
           Creado por <a href={CREADORA.github} target="_blank" rel="noreferrer">{CREADORA.nombre}</a> ·
           Contacto: <a href={`mailto:${CREADORA.correo}`}>{CREADORA.correo}</a> ·
           Instagram: <a href={`https://www.instagram.com/${CREADORA.instagram}/`} target="_blank" rel="noreferrer">@{CREADORA.instagram}</a> ·{' '}
-          <a href="./privacidad.html">Privacidad</a>
+          <a href="#testers">Ser tester</a> · <a href="./privacidad.html">Privacidad</a>
         </p>
       </footer>
       <NavTabs vista={vista} irA={irA} />
