@@ -1,39 +1,62 @@
 import { useState } from 'react'
 import Modal from '../components/Modal'
-import { PROS_INICIALES, TIPS_INICIALES, ESPECIALIDADES, MODALIDADES } from '../data/profesionales'
-import { EMPRENDEDORES_INICIALES, CATEGORIAS_EMPRENDEDOR } from '../data/emprendedores'
+import { PROFESIONALES, TIPS, ESPECIALIDADES, MODALIDADES } from '../data/profesionales'
+import { EMPRENDEDORES, CATEGORIAS_EMPRENDEDOR } from '../data/emprendedores'
 import { useApp } from '../context/AppContext'
+import { CREADORA, mailtoCreadora } from '../data/contacto'
 
 export default function Profesionales() {
   const { toast } = useApp()
-  const [pros, setPros] = useState(PROS_INICIALES)
-  const [tips, setTips] = useState(TIPS_INICIALES)
   const [modal, setModal] = useState(false)
   const [form, setForm] = useState({ n: '', esp: ESPECIALIDADES[0], reg: '', modo: MODALIDADES[0], com: '', tip: '' })
 
-  const [emprendedores, setEmprendedores] = useState(EMPRENDEDORES_INICIALES)
   const [modalEmp, setModalEmp] = useState(false)
   const [formEmp, setFormEmp] = useState({ n: '', cat: CATEGORIAS_EMPRENDEDOR[0], contacto: '', com: '', modo: 'Envíos y retiro' })
 
   const set = (k) => (e) => setForm({ ...form, [k]: e.target.value })
   const setE = (k) => (e) => setFormEmp({ ...formEmp, [k]: e.target.value })
 
+  // Las solicitudes no se publican solas: se envían por correo a la creadora,
+  // que revisa los datos (y el registro en la Superintendencia) antes de publicar.
   const registrar = () => {
     if (!form.n.trim() || !form.reg.trim()) { toast('Completa tu nombre y número de registro'); return }
-    setPros([{ id: Date.now(), n: form.n.trim(), esp: form.esp, modo: form.modo, com: form.com.trim() || '—', ver: false, av: '🩺' }, ...pros])
-    if (form.tip.trim()) setTips([{ id: Date.now(), t: form.tip.trim(), a: form.n.trim() }, ...tips])
+    window.location.href = mailtoCreadora(`Refugio · Solicitud de profesional: ${form.n.trim()}`, [
+      'Hola, quiero ofrecer mis servicios en Refugio.',
+      '',
+      `Nombre: ${form.n.trim()}`,
+      `Especialidad: ${form.esp}`,
+      `N° de registro (Superintendencia de Salud): ${form.reg.trim()}`,
+      `Modalidad: ${form.modo}`,
+      `Comuna: ${form.com.trim() || '—'}`,
+      `Tip para la comunidad: ${form.tip.trim() || '—'}`,
+    ])
     setModal(false)
     setForm({ n: '', esp: ESPECIALIDADES[0], reg: '', modo: MODALIDADES[0], com: '', tip: '' })
-    toast('🩺 Perfil publicado (pendiente de verificación).')
+    toast('📧 Envía el correo que se abrió. Tu perfil se publicará tras revisarlo.')
   }
 
   const registrarEmprendedor = () => {
     if (!formEmp.n.trim() || !formEmp.contacto.trim()) { toast('Completa el nombre y un contacto'); return }
-    setEmprendedores([{ id: Date.now(), n: formEmp.n.trim(), cat: formEmp.cat, contacto: formEmp.contacto.trim(), com: formEmp.com.trim() || '—', modo: formEmp.modo, av: '🧸' }, ...emprendedores])
+    window.location.href = mailtoCreadora(`Refugio · Solicitud de tienda: ${formEmp.n.trim()}`, [
+      'Hola, quiero publicar mi emprendimiento en Refugio.',
+      '',
+      `Emprendimiento: ${formEmp.n.trim()}`,
+      `Qué ofrece: ${formEmp.cat}`,
+      `Contacto: ${formEmp.contacto.trim()}`,
+      `Comuna: ${formEmp.com.trim() || '—'}`,
+      `Modalidad: ${formEmp.modo}`,
+    ])
     setModalEmp(false)
     setFormEmp({ n: '', cat: CATEGORIAS_EMPRENDEDOR[0], contacto: '', com: '', modo: 'Envíos y retiro' })
-    toast('🧸 ¡Gracias! Tu emprendimiento fue publicado.')
+    toast('📧 Envía el correo que se abrió. Tu tienda se publicará tras revisarla.')
   }
+
+  const notaContacto = (
+    <small className="nota">
+      Al enviar se abrirá tu app de correo con los datos listos para enviar a {CREADORA.nombre}.
+      Si no se abre, escribe directamente a <a href={`mailto:${CREADORA.correo}`}>{CREADORA.correo}</a>.
+    </small>
+  )
 
   return (
     <section className="view">
@@ -43,10 +66,14 @@ export default function Profesionales() {
 
       <div style={{ margin: '14px 0' }}>
         <button className="btn" onClick={() => setModal(true)}>🩺 Soy profesional: ofrecer mis servicios</button>
+        <small className="nota">Los perfiles se publican después de que {CREADORA.nombre} revise la solicitud y el registro profesional.</small>
       </div>
 
+      {PROFESIONALES.length === 0 && (
+        <div className="card vacio">🌱 Aún no hay profesionales publicados. Si eres profesional de la salud, envía tu solicitud para ser la primera persona en aparecer.</div>
+      )}
       <div className="grid2">
-        {pros.map((p) => (
+        {PROFESIONALES.map((p) => (
           <div key={p.id} className="card pro-card">
             <div className="avatar">{p.av}</div>
             <div>
@@ -62,10 +89,14 @@ export default function Profesionales() {
 
       <div style={{ margin: '14px 0' }}>
         <button className="btn azul" onClick={() => setModalEmp(true)}>🧸 Tengo un emprendimiento: publicar mi tienda</button>
+        <small className="nota">Las tiendas se publican después de que {CREADORA.nombre} revise la solicitud.</small>
       </div>
 
+      {EMPRENDEDORES.length === 0 && (
+        <div className="card vacio">🌱 Aún no hay tiendas publicadas. Si tienes un emprendimiento de material sensorial, envía tu solicitud.</div>
+      )}
       <div className="grid2">
-        {emprendedores.map((x) => (
+        {EMPRENDEDORES.map((x) => (
           <div key={x.id} className="card pro-card">
             <div className="avatar">{x.av}</div>
             <div>
@@ -76,15 +107,19 @@ export default function Profesionales() {
         ))}
       </div>
 
-      <h2 style={{ marginTop: 30 }}>Tips gratuitos 💡</h2>
-      <div className="grid2">
-        {tips.map((x) => (
-          <div key={x.id} className="tip-card">💡 {x.t}<div className="autor">— {x.a}</div></div>
-        ))}
-      </div>
+      {TIPS.length > 0 && (
+        <>
+          <h2 style={{ marginTop: 30 }}>Tips gratuitos 💡</h2>
+          <div className="grid2">
+            {TIPS.map((x) => (
+              <div key={x.id} className="tip-card">💡 {x.t}<div className="autor">— {x.a}</div></div>
+            ))}
+          </div>
+        </>
+      )}
 
       {modal && (
-        <Modal titulo="🩺 Ofrecer mis servicios" onClose={() => setModal(false)} label="Registro de profesional">
+        <Modal titulo="🩺 Solicitar aparecer como profesional" onClose={() => setModal(false)} label="Registro de profesional">
           <label htmlFor="prNombre">Nombre completo</label>
           <input id="prNombre" value={form.n} onChange={set('n')} placeholder="Ej: Ps. Camila Fuentes" />
           <label htmlFor="prEsp">Especialidad</label>
@@ -101,13 +136,14 @@ export default function Profesionales() {
           <input id="prComuna" value={form.com} onChange={set('com')} placeholder="Ej: Concepción" />
           <label htmlFor="prTip">Comparte un tip gratuito (opcional)</label>
           <textarea id="prTip" rows={2} value={form.tip} onChange={set('tip')} placeholder="Un consejo breve para la comunidad…" />
-          <button className="btn blq" onClick={registrar}>Publicar perfil</button>
-          <small className="nota">El registro será validado contra el Registro Nacional de Prestadores antes de mostrar la insignia de verificación.</small>
+          <button className="btn blq" onClick={registrar}>📧 Enviar solicitud</button>
+          <small className="nota">El registro será validado contra el Registro Nacional de Prestadores antes de publicar el perfil y mostrar la insignia de verificación.</small>
+          {notaContacto}
         </Modal>
       )}
 
       {modalEmp && (
-        <Modal titulo="🧸 Publicar mi emprendimiento" onClose={() => setModalEmp(false)} label="Registro de emprendimiento sensorial">
+        <Modal titulo="🧸 Solicitar publicar mi tienda" onClose={() => setModalEmp(false)} label="Registro de emprendimiento sensorial">
           <label htmlFor="empNombre">Nombre del emprendimiento</label>
           <input id="empNombre" value={formEmp.n} onChange={setE('n')} placeholder="Ej: Sensorial Kids CL" />
           <label htmlFor="empCat">¿Qué ofreces?</label>
@@ -125,8 +161,9 @@ export default function Profesionales() {
             <option>Solo retiro en persona</option>
             <option>Tienda física</option>
           </select>
-          <button className="btn blq" onClick={registrarEmprendedor}>Publicar emprendimiento</button>
+          <button className="btn blq" onClick={registrarEmprendedor}>📧 Enviar solicitud</button>
           <small className="nota">Refugio no gestiona pagos ni envíos: el contacto y la compra son directamente con el emprendimiento.</small>
+          {notaContacto}
         </Modal>
       )}
     </section>
