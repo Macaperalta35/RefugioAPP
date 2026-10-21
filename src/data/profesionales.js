@@ -1,16 +1,10 @@
-export const PROS_INICIALES = [
-  { id: 1, n: 'Ps. Camila Fuentes', esp: 'Psicología clínica', modo: 'Online y presencial', com: 'Concepción', ver: true, av: '👩‍⚕️' },
-  { id: 2, n: 'Dr. Andrés Soto', esp: 'Psiquiatría', modo: 'Presencial', com: 'Talcahuano', ver: true, av: '👨‍⚕️' },
-  { id: 3, n: 'Flga. Valentina Ruiz', esp: 'Fonoaudiología (TEL)', modo: 'Online', com: 'Santiago', ver: true, av: '🗣️' },
-  { id: 4, n: 'T.O. Matías Herrera', esp: 'Terapia ocupacional (TEA/TDAH)', modo: 'Presencial', com: 'Providencia', ver: false, av: '🧩' },
-]
+// Profesionales publicados tras revisar su solicitud (llegan por correo, ver data/contacto.js).
+// Formato: { id, n: 'Ps. Nombre Apellido', esp: 'Psicología clínica', modo: 'Online', com: 'Concepción', ver: true, av: '👩‍⚕️' }
+// Usa ver: true solo si se verificó el registro en la Superintendencia de Salud.
+export const PROFESIONALES = []
 
-export const TIPS_INICIALES = [
-  { id: 1, t: 'En una crisis de pánico, nombra en voz alta lo que ves: le da a tu cerebro una tarea concreta y baja la alarma.', a: 'Ps. Camila Fuentes' },
-  { id: 2, t: 'La higiene del sueño es la base: horarios estables de dormir mejoran la regulación emocional más de lo que crees.', a: 'Dr. Andrés Soto' },
-  { id: 3, t: 'Si un niño o niña con TEL no responde de inmediato, cuenta 10 segundos en silencio antes de repetir. El tiempo de procesamiento es real.', a: 'Flga. Valentina Ruiz' },
-  { id: 4, t: 'Para la sobrecarga sensorial, arma un "kit de calma" portátil: audífonos, un objeto con textura agradable y agua.', a: 'T.O. Matías Herrera' },
-]
+// Tips enviados por profesionales publicados. Formato: { id, t: 'Texto del tip', a: 'Ps. Nombre Apellido' }
+export const TIPS = []
 
 export const ESPECIALIDADES = ['Psicología clínica', 'Psiquiatría', 'Fonoaudiología', 'Terapia ocupacional', 'Psicopedagogía']
 export const MODALIDADES = ['Online', 'Presencial', 'Online y presencial']

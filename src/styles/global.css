@@ -67,6 +67,7 @@ section.view{animation:apar .35s ease}
 .modal:focus,.full-estado:focus{outline:none}
 .btn-voz{margin-top:4px}
 .opciones{border:0;padding:0;margin:12px 0 0}.opciones legend{font-weight:700;font-size:.88rem;margin-bottom:6px;color:var(--bosque)}.opciones label{display:flex;gap:8px;align-items:flex-start;font-weight:400;margin:6px 0}.opciones input{width:auto;padding:0;margin-top:4px}
+.card.vacio{text-align:center;color:var(--tinta-suave);margin:6px 0 4px}
 .link-btn{background:none;padding:0;color:inherit;text-decoration:underline;font:inherit;cursor:pointer}
 .cerrar{position:absolute;right:0;top:0;background:var(--niebla);border-radius:50%;width:38px;height:38px;font-size:1.1rem;color:var(--tinta)}
 .btn{background:var(--salvia);color:#fff;font-weight:700;padding:13px 22px;border-radius:999px;font-size:.95rem}

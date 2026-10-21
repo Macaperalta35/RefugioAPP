@@ -8,7 +8,7 @@ nuevas a Play.
 | Paso | Quién | Estado |
 |---|---|---|
 | 1. PWA (manifiesto, service worker, íconos) y política de privacidad | Código | ✅ Listo en este repo |
-| 2. Revisar contenido de ejemplo | Tú | ⏳ Antes de producción |
+| 2. Revisar contenido de ejemplo | Código + tú | ✅ Ejemplos eliminados · ⏳ revisar espacios del mapa |
 | 3. Cuenta de Google Play Console | Tú | ⏳ |
 | 4. Generar el paquete Android con PWABuilder | Tú | ⏳ |
 | 5. Verificar el dominio (Digital Asset Links) | Código + tú | ⏳ Requiere la huella del paso 4 |
@@ -32,8 +32,7 @@ nuevas a Play.
 Play rechaza apps de salud con afirmaciones engañosas. Antes de pasar a producción:
 
 - Las solicitudes de profesionales y tiendas llegan por correo a la creadora (`src/data/contacto.js`). Para publicar una, agrégala a `src/data/profesionales.js` o `src/data/emprendedores.js` y marca `ver: true` solo si verificaste el registro.
-- `src/data/profesionales.js`: los profesionales de ejemplo muestran **"✓ Verificado"** sin verificación real. Hay que quitarlos o marcarlos claramente como ejemplo.
-- `src/data/emprendedores.js`: tiendas y teléfonos de ejemplo (`+56 9 1234 5678`).
+- ✅ Se eliminaron los profesionales, tips y tiendas de ejemplo; las listas parten vacías y muestran un mensaje invitando a enviar la solicitud.
 - `src/data/espacios.js`: confirmar que los lugares y sus etiquetas sean correctos.
 
 ## 3. Cuenta de Google Play Console

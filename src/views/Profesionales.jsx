@@ -1,18 +1,15 @@
 import { useState } from 'react'
 import Modal from '../components/Modal'
-import { PROS_INICIALES, TIPS_INICIALES, ESPECIALIDADES, MODALIDADES } from '../data/profesionales'
-import { EMPRENDEDORES_INICIALES, CATEGORIAS_EMPRENDEDOR } from '../data/emprendedores'
+import { PROFESIONALES, TIPS, ESPECIALIDADES, MODALIDADES } from '../data/profesionales'
+import { EMPRENDEDORES, CATEGORIAS_EMPRENDEDOR } from '../data/emprendedores'
 import { useApp } from '../context/AppContext'
 import { CREADORA, mailtoCreadora } from '../data/contacto'
 
 export default function Profesionales() {
   const { toast } = useApp()
-  const pros = PROS_INICIALES
-  const tips = TIPS_INICIALES
   const [modal, setModal] = useState(false)
   const [form, setForm] = useState({ n: '', esp: ESPECIALIDADES[0], reg: '', modo: MODALIDADES[0], com: '', tip: '' })
 
-  const emprendedores = EMPRENDEDORES_INICIALES
   const [modalEmp, setModalEmp] = useState(false)
   const [formEmp, setFormEmp] = useState({ n: '', cat: CATEGORIAS_EMPRENDEDOR[0], contacto: '', com: '', modo: 'Envíos y retiro' })
 
@@ -72,8 +69,11 @@ export default function Profesionales() {
         <small className="nota">Los perfiles se publican después de que {CREADORA.nombre} revise la solicitud y el registro profesional.</small>
       </div>
 
+      {PROFESIONALES.length === 0 && (
+        <div className="card vacio">🌱 Aún no hay profesionales publicados. Si eres profesional de la salud, envía tu solicitud para ser la primera persona en aparecer.</div>
+      )}
       <div className="grid2">
-        {pros.map((p) => (
+        {PROFESIONALES.map((p) => (
           <div key={p.id} className="card pro-card">
             <div className="avatar">{p.av}</div>
             <div>
@@ -92,8 +92,11 @@ export default function Profesionales() {
         <small className="nota">Las tiendas se publican después de que {CREADORA.nombre} revise la solicitud.</small>
       </div>
 
+      {EMPRENDEDORES.length === 0 && (
+        <div className="card vacio">🌱 Aún no hay tiendas publicadas. Si tienes un emprendimiento de material sensorial, envía tu solicitud.</div>
+      )}
       <div className="grid2">
-        {emprendedores.map((x) => (
+        {EMPRENDEDORES.map((x) => (
           <div key={x.id} className="card pro-card">
             <div className="avatar">{x.av}</div>
             <div>
@@ -104,12 +107,16 @@ export default function Profesionales() {
         ))}
       </div>
 
-      <h2 style={{ marginTop: 30 }}>Tips gratuitos 💡</h2>
-      <div className="grid2">
-        {tips.map((x) => (
-          <div key={x.id} className="tip-card">💡 {x.t}<div className="autor">— {x.a}</div></div>
-        ))}
-      </div>
+      {TIPS.length > 0 && (
+        <>
+          <h2 style={{ marginTop: 30 }}>Tips gratuitos 💡</h2>
+          <div className="grid2">
+            {TIPS.map((x) => (
+              <div key={x.id} className="tip-card">💡 {x.t}<div className="autor">— {x.a}</div></div>
+            ))}
+          </div>
+        </>
+      )}
 
       {modal && (
         <Modal titulo="🩺 Solicitar aparecer como profesional" onClose={() => setModal(false)} label="Registro de profesional">
