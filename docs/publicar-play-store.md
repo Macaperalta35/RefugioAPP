@@ -132,8 +132,28 @@ Como Refugio vive en `/RefugioAPP/`, se necesita un repositorio de sitio de usua
 
 ## 8. Producción
 
-Al cumplir los 14 días, en *Panel → Solicitar acceso a producción* responde el cuestionario sobre la prueba.
-La revisión de Google puede tardar desde unos días hasta un par de semanas.
+### 8.1 Solicitar acceso a producción
+Solo para cuentas personales nuevas, al cumplir los 14 días de la prueba cerrada:
+
+1. *Panel → Solicitar acceso a producción*.
+2. Responde el cuestionario. Google pregunta cómo reclutaste a los testers, qué te comentaron, qué cambiaste a partir de eso y por qué la app está lista. Responde con detalle: las respuestas genéricas son motivo frecuente de rechazo.
+3. Google responde en unos días. Si la rechaza, normalmente pide extender la prueba cerrada.
+
+### 8.2 Crear la versión de producción
+1. *Prueba y lanzamiento → Producción → Crear versión*.
+2. **Agregar desde la biblioteca**: elige el mismo `.aab` que probaste en la prueba cerrada. No hace falta generar otro.
+3. Escribe las **notas de la versión**, por ejemplo: *Primera versión de Refugio: espacios de calma, técnicas para crisis, pictogramas y SOS.*
+4. *Países y regiones*: agrega **Chile**, o más países si quieres.
+5. *Revisar versión → Iniciar lanzamiento a producción*.
+
+### 8.3 Revisión de Google
+- La primera revisión suele tardar de unos días a una semana. En apps de salud puede tomar más.
+- Para ver el estado, entra a *Panel → Resumen de publicación*. Si Google pide cambios, lo indica ahí y por correo.
+- Una vez aprobada, la app aparece en Play Store en unas horas.
+
+### 8.4 Después de publicar
+- Para revisar errores (ANR, fallos) y reseñas, entra a *Calidad → Android vitals* y *Calificaciones y reseñas*.
+- Responde las reseñas, sobre todo las que reporten problemas en una crisis.
 
 ---
 

@@ -7,7 +7,7 @@ import { useLocalStorage } from '../hooks/useLocalStorage'
 
 export default function Estado() {
   const { toast, setFullScreen } = useApp()
-  // Los estados creados se guardan en el dispositivo; los de ejemplo siempre se muestran
+  // Los estados creados se guardan en el dispositivo; los predefinidos siempre se muestran
   const [propios, setPropios] = useLocalStorage('estados', [])
   const estados = [...propios, ...ESTADOS_INICIALES]
   const [modal, setModal] = useState(false)

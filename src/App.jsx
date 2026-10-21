@@ -50,7 +50,7 @@ export default function App() {
         {vista === 'pros' && <Profesionales />}
       </main>
       <footer>
-        <p><b>Refugio</b> · Prototipo con fines educativos y sociales · Chile 🇨🇱</p>
+        <p><b>Refugio</b> · Proyecto de impacto social · Chile 🇨🇱</p>
         <p>Ante una emergencia vital llama al {EMERGENCIA.tel} ({EMERGENCIA.nombre}) · {LINEAS.map((l) => l.nombre).join(' · ')}</p>
         <p>
           Creado por <a href={CREADORA.github} target="_blank" rel="noreferrer">{CREADORA.nombre}</a> ·

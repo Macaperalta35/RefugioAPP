@@ -1,7 +1,7 @@
 {
   "name": "refugio",
   "private": true,
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Red de espacios de calma, apoyo en crisis e inclusión neurodivergente",
   "type": "module",
   "scripts": {
