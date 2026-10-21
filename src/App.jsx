@@ -11,6 +11,7 @@ import Neuro from './views/Neuro'
 import Estado from './views/Estado'
 import Profesionales from './views/Profesionales'
 import { EMERGENCIA, LINEAS } from './data/lineas'
+import { CREADORA } from './data/contacto'
 
 const VISTAS = ['inicio', 'mapa', 'calma', 'neuro', 'estado', 'pros']
 const vistaDesdeHash = () => {
@@ -51,7 +52,10 @@ export default function App() {
       <footer>
         <p><b>Refugio</b> · Prototipo con fines educativos y sociales · Chile 🇨🇱</p>
         <p>Ante una emergencia vital llama al {EMERGENCIA.tel} ({EMERGENCIA.nombre}) · {LINEAS.map((l) => l.nombre).join(' · ')}</p>
-        <p>Creado por <a href="https://github.com/Macaperalta35" target="_blank" rel="noreferrer">Lilith</a> · <a href="./privacidad.html">Privacidad</a></p>
+        <p>
+          Creado por <a href={CREADORA.github} target="_blank" rel="noreferrer">{CREADORA.nombre}</a> ·
+          Contacto: <a href={`mailto:${CREADORA.correo}`}>{CREADORA.correo}</a> · <a href="./privacidad.html">Privacidad</a>
+        </p>
       </footer>
       <NavTabs vista={vista} irA={irA} />
       <Toast />

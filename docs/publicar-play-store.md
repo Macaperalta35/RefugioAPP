@@ -31,6 +31,7 @@ nuevas a Play.
 
 Play rechaza apps de salud con afirmaciones engañosas. Antes de pasar a producción:
 
+- Las solicitudes de profesionales y tiendas llegan por correo a la creadora (`src/data/contacto.js`). Para publicar una, agrégala a `src/data/profesionales.js` o `src/data/emprendedores.js` y marca `ver: true` solo si verificaste el registro.
 - `src/data/profesionales.js`: los profesionales de ejemplo muestran **"✓ Verificado"** sin verificación real. Hay que quitarlos o marcarlos claramente como ejemplo.
 - `src/data/emprendedores.js`: tiendas y teléfonos de ejemplo (`+56 9 1234 5678`).
 - `src/data/espacios.js`: confirmar que los lugares y sus etiquetas sean correctos.
@@ -107,6 +108,7 @@ Como Refugio vive en `/RefugioAPP/`, se necesita un repositorio de sitio de usua
 - Gráfico de funciones 1024×500 (obligatorio).
 - Mínimo 2 capturas de teléfono. Lo más fácil es sacarlas desde el teléfono con la app instalada.
 - Categoría: **Salud y bienestar**.
+- Datos de contacto (obligatorio): correo **macaperalta35@gmail.com**, el mismo de `src/data/contacto.js`.
 
 **Contenido de la app** (menú *Política → Contenido de la app*):
 
@@ -117,7 +119,7 @@ Como Refugio vive en `/RefugioAPP/`, se necesita un repositorio de sitio de usua
 | Acceso a la app | Toda la funcionalidad está disponible sin restricciones |
 | Clasificación de contenido | Completar el cuestionario IARC (sin violencia ni contenido sexual) |
 | Público objetivo | 13 años o más. Incluir menores de 13 activa los requisitos del programa Familias. |
-| Seguridad de los datos | **No se recopilan ni comparten datos**: todo queda en el dispositivo y el SOS lo envía la persona con su propia app de mensajería. Si en el futuro se agrega un backend, este formulario hay que actualizarlo. |
+| Seguridad de los datos | **La app no recopila ni comparte datos**: todo queda en el dispositivo. El SOS y las solicitudes de profesionales y tiendas los envía la propia persona con su app de mensajería o de correo. Si en el futuro se agrega un backend, este formulario hay que actualizarlo. |
 | Apps de salud | Declarar la categoría de **salud mental y conductual** |
 | App gubernamental / Finanzas / COVID-19 | No |
 
