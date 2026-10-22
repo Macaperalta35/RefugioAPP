@@ -64,6 +64,17 @@ git push -u origin main
 - **Vercel / Netlify**: importa el repo, framework *Vite*, build `npm run build`, output `dist/`.
 - **GitHub Pages**: `npm run build`, sube `dist/` con la acción *deploy-pages* (el `base: './'` de `vite.config.js` ya lo deja listo).
 
+## 🤖 Servidor MCP
+
+La carpeta [`mcp/`](mcp/README.md) tiene un servidor MCP (Model Context Protocol) para que asistentes como Claude
+consulten los espacios de calma, las líneas de ayuda, las técnicas de calma, las adaptaciones y los pictogramas de Refugio.
+Funciona en local, es de solo lectura y usa los mismos datos de `src/data/`.
+
+```bash
+cd mcp && npm install && npm test
+claude mcp add refugio -- node "$(pwd)/server.js"
+```
+
 ## 📁 Estructura del proyecto
 
 ```
