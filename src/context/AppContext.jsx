@@ -13,12 +13,21 @@ export function AppProvider({ children }) {
 
   useEffect(() => { document.documentElement.dataset.theme = theme }, [theme])
 
+  // Modo bajo estímulo: sin animaciones ni sonidos de juegos, colores suaves y letra más grande (ver global.css)
+  const [bajoEstimulo, setBajoEstimulo] = useLocalStorage('bajo-estimulo', false)
+  useEffect(() => {
+    if (bajoEstimulo) document.documentElement.dataset.estimulo = 'bajo'
+    else delete document.documentElement.dataset.estimulo
+  }, [bajoEstimulo])
+
   const toggleTheme = useCallback(() => {
     setTemaElegido(theme === 'light' ? 'dark' : 'light')
   }, [theme, setTemaElegido])
 
   // Un aviso nuevo reinicia el temporizador, así no lo borra el del aviso anterior
   const toastTimer = useRef(null)
+  const toggleBajoEstimulo = useCallback(() => setBajoEstimulo((v) => !v), [setBajoEstimulo])
+
   const toast = useCallback((msg) => {
     clearTimeout(toastTimer.current)
     setToastMsg(msg)
@@ -26,7 +35,7 @@ export function AppProvider({ children }) {
   }, [])
 
   return (
-    <AppContext.Provider value={{ theme, toggleTheme, toast, toastMsg, fullScreen, setFullScreen }}>
+    <AppContext.Provider value={{ theme, toggleTheme, bajoEstimulo, toggleBajoEstimulo, toast, toastMsg, fullScreen, setFullScreen }}>
       {children}
     </AppContext.Provider>
   )

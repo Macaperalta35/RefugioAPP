@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Modal from '../components/Modal'
 import {
-  sonidoActivo, alternarSonido, sonarPop, sonarSuelta, sonarApretar,
+  sonidoActivo, alternarSonido, silenciadoPorBajoEstimulo, sonarPop, sonarSuelta, sonarApretar,
   sonarSoltarGlobo, sonarTick, sonarChispa, sonarBoop, sonarGiro,
 } from './juegos-sonido'
 
@@ -200,9 +200,13 @@ export default function MiniJuegos({ onClose }) {
 
   return (
     <Modal titulo={activo ? `${meta.ic} ${meta.t}` : '📱 Mini-juegos sensoriales'} onClose={onClose} label="Mini-juegos sensoriales">
-      <button className="btn sec sonido-toggle" onClick={() => setSonido(alternarSonido())}>
-        {sonido ? '🔊 Sonido activado' : '🔇 Sonido silenciado'}
-      </button>
+      {silenciadoPorBajoEstimulo() ? (
+        <p className="nota sonido-toggle">🎚️ Sin sonido: el modo bajo estímulo está activado</p>
+      ) : (
+        <button className="btn sec sonido-toggle" onClick={() => setSonido(alternarSonido())}>
+          {sonido ? '🔊 Sonido activado' : '🔇 Sonido silenciado'}
+        </button>
+      )}
       {!activo && (
         <>
           <p className="sub" style={{ fontSize: '.9rem' }}>
