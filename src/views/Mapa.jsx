@@ -4,6 +4,7 @@ import { ESPACIOS, FILTROS } from '../data/espacios'
 import { useApp } from '../context/AppContext'
 import { CREADORA, mailtoCreadora } from '../data/contacto'
 import Modal from '../components/Modal'
+import { distanciaKm, formatoDistancia } from '../lib/distancia'
 
 /**
  * Contenido del popup armado con nodos DOM y textContent (no con HTML
@@ -30,17 +31,6 @@ const crearPopup = (espacio) => {
 }
 
 const ETIQUETAS = Object.fromEntries(FILTROS.map((f) => [f.id, f.label]))
-
-/** Distancia en km entre dos puntos (fórmula de Haversine) */
-const distanciaKm = (a, b) => {
-  const rad = (g) => (g * Math.PI) / 180
-  const dLat = rad(b.lat - a.lat), dLng = rad(b.lng - a.lng)
-  const h = Math.sin(dLat / 2) ** 2 + Math.cos(rad(a.lat)) * Math.cos(rad(b.lat)) * Math.sin(dLng / 2) ** 2
-  return 2 * 6371 * Math.asin(Math.sqrt(h))
-}
-
-const formatoDistancia = (km) =>
-  km < 1 ? `a ${Math.round(km * 1000 / 50) * 50} m` : `a ${km.toLocaleString('es-CL', { maximumFractionDigits: km < 10 ? 1 : 0 })} km`
 
 const iconoMarcador = (espacio) => {
   const esAlerta = espacio.tags.includes('sobreestimulacion') || espacio.tags.includes('sin-acceso')
