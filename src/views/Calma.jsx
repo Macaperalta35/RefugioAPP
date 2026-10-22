@@ -4,6 +4,8 @@ import Grounding from '../features/Grounding'
 import Relajacion from '../features/Relajacion'
 import JuegosSensoriales from '../features/JuegosSensoriales'
 import MiniJuegos from '../features/MiniJuegos'
+import { PlanSeccion } from '../features/PlanSeguridad'
+import { useApp } from '../context/AppContext'
 
 const TARJETAS = [
   { id: 'r478', ic: '🌬️', t: 'Respiración 4-7-8', d: 'Inhala 4, retén 7, exhala 8. Ideal para bajar la activación del cuerpo.' },
@@ -15,6 +17,7 @@ const TARJETAS = [
 ]
 
 export default function Calma() {
+  const { toast } = useApp()
   const [modal, setModal] = useState(null)
   const cerrar = () => setModal(null)
 
@@ -23,6 +26,8 @@ export default function Calma() {
       <p className="eyebrow">Técnicas validadas</p>
       <h2>Herramientas para atravesar una crisis</h2>
       <p className="sub">Ejercicios breves y guiados, basados en técnicas ampliamente utilizadas para el manejo de la ansiedad.</p>
+
+      <PlanSeccion toast={toast} />
 
       <div className="grid2">
         {TARJETAS.map((t) => (

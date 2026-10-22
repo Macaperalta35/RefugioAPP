@@ -4,6 +4,7 @@ import Respiracion from '../features/Respiracion'
 import Grounding from '../features/Grounding'
 import SOS from '../features/SOS'
 import { useTarjeta, TarjetaVista } from '../features/TarjetaCrisis'
+import { usePlan, PlanVista } from '../features/PlanSeguridad'
 import { LINEAS, EMERGENCIA } from '../data/lineas'
 
 const ACCESOS = [
@@ -15,8 +16,9 @@ const ACCESOS = [
 ]
 
 export default function Inicio({ irA }) {
-  const [modal, setModal] = useState(null) // 'crisis' | 'sos' | 'resp' | 'grounding' | 'tarjeta'
+  const [modal, setModal] = useState(null) // 'crisis' | 'sos' | 'resp' | 'grounding' | 'tarjeta' | 'plan'
   const [tarjeta] = useTarjeta()
+  const [plan] = usePlan()
   const cerrar = () => setModal(null)
 
   return (
@@ -63,6 +65,7 @@ export default function Inicio({ irA }) {
           <p className="sub" style={{ fontSize: '.92rem' }}>Lo que sientes es intenso, pero va a pasar. Elige una opción:</p>
           <button className="btn blq" onClick={() => setModal('resp')}>🌬️ Respirar conmigo (guiado)</button>
           <button className="btn lila blq" onClick={() => setModal('grounding')}>🖐️ Grounding 5-4-3-2-1</button>
+          {plan && <button className="btn blq" onClick={() => setModal('plan')}>📋 Seguir mi plan de seguridad</button>}
           {tarjeta && <button className="btn azul blq" onClick={() => setModal('tarjeta')}>🪪 Mostrar mi tarjeta de crisis</button>}
           {LINEAS.map((l) => (
             <a key={l.tel} className="btn sec blq" href={`tel:${l.tel}`}>{l.icono} Llamar: {l.nombre}</a>
@@ -75,6 +78,7 @@ export default function Inicio({ irA }) {
       {modal === 'resp' && <Respiracion patron="478" onClose={cerrar} />}
       {modal === 'grounding' && <Grounding onClose={cerrar} />}
       {modal === 'tarjeta' && tarjeta && <TarjetaVista tarjeta={tarjeta} onClose={cerrar} />}
+      {modal === 'plan' && plan && <PlanVista plan={plan} onClose={cerrar} />}
     </section>
   )
 }
