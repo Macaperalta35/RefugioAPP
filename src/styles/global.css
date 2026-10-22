@@ -91,6 +91,18 @@ section.view{animation:apar .35s ease}
 .testers-acepto input{width:auto;margin-top:3px;flex:none}
 .testers-fallback{margin-top:16px}.testers-fallback p{margin:4px 0 10px}
 .testers-fallback pre{white-space:pre-wrap;word-break:break-word;font-family:var(--fb);font-size:.82rem;background:var(--bruma);border-radius:12px;padding:12px;margin-bottom:12px;user-select:all}
+.plan-editor-paso{border-top:1px solid var(--borde);margin-top:18px;padding-top:6px}
+.plan-editor-paso h3{font-size:1rem;margin-top:8px}
+.plan-contactos{list-style:none;padding:0;margin:0 0 6px;display:grid;gap:6px}
+.plan-contactos li{display:flex;align-items:center;justify-content:space-between;gap:8px;background:var(--bruma);border-radius:12px;padding:8px 10px;font-size:.92rem}
+.plan-contactos .cerrar{position:static;width:30px;height:30px;font-size:.85rem;flex:none}
+.tarjeta-hoja .plan-intro{color:#2F5347;font-weight:700;margin:12px 0 2px}
+.tarjeta-bloque.plan-razones{background:#E6F2EC}
+.tarjeta-bloque.plan-paso{background:#F2F6F4;border:1px solid #D7E2DC}
+.plan-num{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#2F5347;color:#fff;font-size:.9rem;margin-right:4px;vertical-align:middle}
+.tarjeta-bloque .plan-personas{list-style:none;padding:0;margin-top:6px;display:grid;gap:8px}
+.tarjeta-hoja .plan-persona{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:1.05rem}
+.plan-persona .btn{padding:8px 14px;font-size:.88rem;flex:none}
 .card.vacio{text-align:center;color:var(--tinta-suave);margin:6px 0 4px}
 .link-btn{background:none;padding:0;color:inherit;text-decoration:underline;font:inherit;cursor:pointer}
 .cerrar{position:absolute;right:0;top:0;background:var(--niebla);border-radius:50%;width:38px;height:38px;font-size:1.1rem;color:var(--tinta)}
