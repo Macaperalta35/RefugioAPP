@@ -29,8 +29,11 @@ export const alternarSonido = () => {
   return activo
 }
 
+/** El modo bajo estímulo silencia los juegos sin cambiar la preferencia guardada */
+export const silenciadoPorBajoEstimulo = () => document.documentElement.dataset.estimulo === 'bajo'
+
 const tono = ({ freq = 440, duracion = 0.15, tipo = 'sine', volumen = 0.5, deslizarA = null }) => {
-  if (!activo) return
+  if (!activo || silenciadoPorBajoEstimulo()) return
   try {
     const audio = obtenerCtx()
     const osc = audio.createOscillator()

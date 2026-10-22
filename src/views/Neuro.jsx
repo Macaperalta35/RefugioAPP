@@ -5,7 +5,7 @@ import { useApp } from '../context/AppContext'
 import { vozDisponible, hablar } from '../features/voz'
 
 export default function Neuro() {
-  const { toast, setFullScreen } = useApp()
+  const { toast, setFullScreen, bajoEstimulo, toggleBajoEstimulo } = useApp()
   const categorias = Object.keys(PICTOGRAMAS)
   const [cat, setCat] = useState(categorias[0])
   const [tira, setTira] = useState([])
@@ -25,6 +25,16 @@ export default function Neuro() {
       <p className="eyebrow">Espacio neurodivergente</p>
       <h2>Ayudas y adaptaciones 🧩</h2>
       <p className="sub">Estrategias concretas para adecuar clases, evaluaciones y tareas cotidianas. Útil para estudiantes, docentes y familias.</p>
+
+      <div className="card tarjeta-resumen">
+        <h3>🎚️ Modo bajo estímulo</h3>
+        <p>Para momentos de sobrecarga sensorial: quita las animaciones y los sonidos de los juegos, suaviza los colores y agranda la letra. También está en el botón 🎚️ de arriba.</p>
+        <div className="acciones">
+          <button className={`btn ${bajoEstimulo ? 'sec' : ''}`} aria-pressed={bajoEstimulo} onClick={toggleBajoEstimulo}>
+            {bajoEstimulo ? '✓ Activado · Desactivar' : 'Activar modo bajo estímulo'}
+          </button>
+        </div>
+      </div>
 
       <div className="acordeon">
         {ADAPTACIONES.map((a) => (
