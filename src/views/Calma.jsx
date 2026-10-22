@@ -4,15 +4,17 @@ import Grounding from '../features/Grounding'
 import Relajacion from '../features/Relajacion'
 import JuegosSensoriales from '../features/JuegosSensoriales'
 import MiniJuegos from '../features/MiniJuegos'
+import SonidosCalma from '../features/SonidosCalma'
 import { PlanSeccion } from '../features/PlanSeguridad'
 import { useApp } from '../context/AppContext'
 
 const TARJETAS = [
-  { id: 'r478', ic: '🌬️', t: 'Respiración 4-7-8', d: 'Inhala 4, retén 7, exhala 8. Ideal para bajar la activación del cuerpo.' },
+  { id: 'r478', ic: '🌬️', t: 'Respiración 4-7-8', d: 'Inhala 4, retén 7, exhala 8. Ideal para bajar la activación del cuerpo. Con vibración opcional.' },
   { id: 'rcaja', ic: '📦', t: 'Respiración de caja', d: '4-4-4-4. Usada para recuperar el control en momentos de estrés.' },
   { id: 'grounding', ic: '🖐️', t: 'Grounding 5-4-3-2-1', d: 'Vuelve al presente usando tus cinco sentidos, paso a paso.' },
   { id: 'relax', ic: '💆', t: 'Relajación muscular', d: 'Tensa y suelta cada grupo muscular para liberar la tensión.' },
   { id: 'juegos', ic: '🎮', t: 'Juegos sensoriales', d: 'Actividades simples y directas con los sentidos para bajar la ansiedad.' },
+  { id: 'ruido', ic: '🌫️', t: 'Sonidos de calma', d: 'Ruido blanco, rosa o marrón para tapar el ruido, regularte o dormir. Sin internet.' },
   { id: 'minijuegos', ic: '📱', t: 'Mini-juegos sensoriales', d: '6 juegos livianos para el celular: sin puntaje ni presión, solo para regularte.' },
 ]
 
@@ -43,6 +45,7 @@ export default function Calma() {
       {modal === 'relax' && <Relajacion onClose={cerrar} />}
       {modal === 'juegos' && <JuegosSensoriales onClose={cerrar} />}
       {modal === 'minijuegos' && <MiniJuegos onClose={cerrar} />}
+      {modal === 'ruido' && <SonidosCalma onClose={cerrar} />}
     </section>
   )
 }

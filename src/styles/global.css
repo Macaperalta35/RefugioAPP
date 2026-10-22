@@ -103,6 +103,13 @@ section.view{animation:apar .35s ease}
 .tarjeta-bloque .plan-personas{list-style:none;padding:0;margin-top:6px;display:grid;gap:8px}
 .tarjeta-hoja .plan-persona{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:1.05rem}
 .plan-persona .btn{padding:8px 14px;font-size:.88rem;flex:none}
+.resp-vibrar{margin-top:16px;display:flex;flex-direction:column;align-items:center;gap:6px}
+.ruido-tipos{display:grid;gap:10px;margin:14px 0 4px}
+.ruido-tipo{display:grid;grid-template-columns:auto 1fr;column-gap:12px;align-items:center;text-align:left;background:var(--tarjeta);border:2px solid var(--borde);border-radius:18px;padding:12px 14px;color:var(--tinta)}
+.ruido-tipo .ic{grid-row:span 2;font-size:1.6rem}.ruido-tipo b{color:var(--bosque)}.ruido-tipo span:last-child{font-size:.82rem;color:var(--tinta-suave)}
+.ruido-tipo.on{border-color:var(--salvia);background:var(--bruma);box-shadow:0 0 0 3px rgba(127,167,146,.25)}
+input[type=range]{padding:0;accent-color:var(--salvia);height:32px;background:none;border:none}
+.ruido-control .nota{text-align:center;min-height:1.2em}
 .card.vacio{text-align:center;color:var(--tinta-suave);margin:6px 0 4px}
 .link-btn{background:none;padding:0;color:inherit;text-decoration:underline;font:inherit;cursor:pointer}
 .cerrar{position:absolute;right:0;top:0;background:var(--niebla);border-radius:50%;width:38px;height:38px;font-size:1.1rem;color:var(--tinta)}
