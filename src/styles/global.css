@@ -125,6 +125,44 @@ section.view{animation:apar .35s ease}
 .ruido-tipo.on{border-color:var(--salvia);background:var(--bruma);box-shadow:0 0 0 3px rgba(127,167,146,.25)}
 input[type=range]{padding:0;accent-color:var(--salvia);height:32px;background:none;border:none}
 .ruido-control .nota{text-align:center;min-height:1.2em}
+.segmentos{display:flex;background:var(--niebla);border-radius:999px;padding:4px;gap:4px;margin:14px 0}
+.segmentos button{flex:1;background:none;border-radius:999px;padding:9px 8px;font-weight:700;color:var(--tinta-suave);font-size:.9rem}
+.segmentos button.on{background:var(--tarjeta);color:var(--bosque);box-shadow:var(--sombra)}
+.org-acceso{display:flex;gap:14px;align-items:flex-start;text-decoration:none;color:inherit;margin-top:14px}
+.org-acceso .ic{margin:0}
+.agenda-nav{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.agenda-nav h3{text-align:center;flex:1;font-size:1.1rem}
+.agenda-nav .btn{padding:8px 16px;font-size:1.2rem}
+.agenda-hoy{display:block;margin:6px auto 0;font-size:.85rem}
+.agenda-anio{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.agenda-mes-btn{background:var(--tarjeta);border:1.5px solid var(--borde);border-radius:14px;padding:12px 6px;display:flex;flex-direction:column;gap:2px;color:var(--tinta)}
+.agenda-mes-btn b{color:var(--bosque);font-size:.9rem}.agenda-mes-btn span{font-size:.75rem;color:var(--tinta-suave)}
+.agenda-mes-btn.actual{border-color:var(--salvia);background:var(--bruma)}
+.agenda-mes{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-top:12px}
+.agenda-dsem{text-align:center;font-size:.72rem;font-weight:700;color:var(--tinta-suave)}
+.agenda-dia{background:var(--tarjeta);border:1px solid var(--borde);border-radius:10px;aspect-ratio:1;min-height:44px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:4px 0;color:var(--tinta)}
+.agenda-dia b{font-size:.85rem}.agenda-dia.hoy{border:2px solid var(--salvia);background:var(--bruma)}
+.agenda-puntos{display:flex;gap:1px;font-size:.6rem;line-height:1}.agenda-puntos i{font-style:normal}
+.lista-check{list-style:none;padding:0;margin:12px 0;display:grid;gap:8px}
+.lista-check li{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--tarjeta);border:1px solid var(--borde);border-radius:14px;padding:10px 12px}
+.lista-check li.vacio{justify-content:center;color:var(--tinta-suave);font-size:.9rem}
+.lista-check label{display:flex;align-items:center;gap:12px;margin:0;font-weight:400;color:var(--tinta);font-size:1rem;flex:1;cursor:pointer}
+.lista-check input[type=checkbox]{width:24px;height:24px;flex:none;accent-color:var(--salvia);padding:0}
+.lista-check li.hecho span{text-decoration:line-through;color:var(--tinta-suave)}
+.lista-check small{color:var(--tinta-suave)}
+.lista-check .cerrar{position:static;width:32px;height:32px;font-size:.85rem;flex:none}
+.lista-check.editable li{padding:8px 10px}.paso-acciones{display:flex;gap:4px}
+.paso-acciones .cerrar:disabled{opacity:.35}
+.org-form{margin-top:14px}.org-form .frases{margin-top:10px}
+.org-fila{display:flex;gap:8px;margin-top:8px}.org-fila input{flex:1;min-width:0}.org-fila .org-min{flex:0 0 76px}
+.rutina{margin-top:14px}.rutina.completa{border-color:var(--salvia)}
+.rutina-cab{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.rutina-avance{font-size:.88rem;color:var(--tinta-suave);margin:6px 0}
+.barra{height:10px;border-radius:999px;background:var(--niebla);overflow:hidden}
+.barra i{display:block;height:100%;background:var(--salvia);border-radius:999px;transition:width .3s}
+.org-plantillas{margin-top:14px}.org-plantillas h3{margin-bottom:10px;font-size:1rem}
+.compras-grupo h4{margin-top:14px;color:var(--bosque);font-size:.95rem}
+.compras-acciones{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:14px}
 .card.vacio{text-align:center;color:var(--tinta-suave);margin:6px 0 4px}
 .link-btn{background:none;padding:0;color:inherit;text-decoration:underline;font:inherit;cursor:pointer}
 .cerrar{position:absolute;right:0;top:0;background:var(--niebla);border-radius:50%;width:38px;height:38px;font-size:1.1rem;color:var(--tinta)}

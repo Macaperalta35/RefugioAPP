@@ -36,6 +36,14 @@ export default function Neuro() {
         </div>
       </div>
 
+      <a className="card link org-acceso" href="#organizar">
+        <span className="ic">📒</span>
+        <div>
+          <h3>Organizar mi día</h3>
+          <p>Agenda anual, mensual y diaria, rutinas paso a paso y lista de compras. Especialmente útil con TDAH.</p>
+        </div>
+      </a>
+
       <div className="acordeon">
         {ADAPTACIONES.map((a) => (
           <details key={a.id}>
