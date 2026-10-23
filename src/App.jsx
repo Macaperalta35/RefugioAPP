@@ -11,11 +11,12 @@ import Neuro from './views/Neuro'
 import Estado from './views/Estado'
 import Profesionales from './views/Profesionales'
 import Testers from './views/Testers'
+import Organizar from './views/Organizar'
 import { EMERGENCIA, LINEAS } from './data/lineas'
 import { CREADORA } from './data/contacto'
 
-// 'testers' no está en la barra inferior: se abre con el enlace directo #testers
-const VISTAS = ['inicio', 'mapa', 'calma', 'neuro', 'estado', 'pros', 'testers']
+// 'testers' y 'organizar' no están en la barra inferior: se abren con su enlace (#testers, #organizar)
+const VISTAS = ['inicio', 'mapa', 'calma', 'neuro', 'estado', 'pros', 'testers', 'organizar']
 const vistaDesdeHash = () => {
   const v = window.location.hash.slice(1)
   return VISTAS.includes(v) ? v : 'inicio'
@@ -51,6 +52,7 @@ export default function App() {
         {vista === 'estado' && <Estado />}
         {vista === 'pros' && <Profesionales />}
         {vista === 'testers' && <Testers />}
+        {vista === 'organizar' && <Organizar />}
       </main>
       <footer>
         <p><b>Refugio</b> · Proyecto de impacto social · Chile 🇨🇱</p>

@@ -11,6 +11,7 @@ const ACCESOS = [
   { v: 'mapa', ic: '🗺️', t: 'Espacios de calma', d: 'Mapa de lugares tranquilos y de baja estimulación cerca de ti.' },
   { v: 'calma', ic: '🌬️', t: 'Técnicas de calma', d: 'Respiración guiada, grounding 5-4-3-2-1 y relajación muscular.' },
   { v: 'neuro', ic: '🧩', t: 'Espacio neurodivergente', d: 'Adaptaciones para TDAH, TEA, dislexia y TEL, más pictogramas.' },
+  { v: 'organizar', ic: '📒', t: 'Organizar mi día', d: 'Agenda, rutinas diarias y lista de compras. Pensado para TDAH.' },
   { v: 'estado', ic: '😊', t: 'Mi estado de ánimo', d: 'Muestra cómo te sientes sin necesidad de hablar.' },
   { v: 'pros', ic: '🩺', t: 'Profesionales', d: 'Especialistas en salud mental y tips gratuitos.' },
 ]
