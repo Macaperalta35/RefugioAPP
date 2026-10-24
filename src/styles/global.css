@@ -179,7 +179,8 @@ small.nota{display:block;color:var(--tinta-suave);font-size:.78rem;margin-top:6p
 
 /* ============ RESPIRACIÓN / CALMA ============ */
 .resp-zona{text-align:center;padding:10px 0}
-.circulo{width:190px;height:190px;margin:18px auto;border-radius:50%;background:radial-gradient(circle at 35% 30%,var(--lavanda),var(--salvia));display:grid;place-items:center;color:#fff;font-family:var(--fd);font-weight:700;font-size:1.05rem;transition:transform 4s ease-in-out;box-shadow:0 0 0 14px var(--lavanda-suave)}
+/* El margen deja lugar al círculo agrandado (scale 1.35 + anillo), para que no tape el título ni la instrucción */
+.circulo{width:190px;height:190px;margin:58px auto;border-radius:50%;background:radial-gradient(circle at 35% 30%,var(--lavanda),var(--salvia));display:grid;place-items:center;color:#fff;font-family:var(--fd);font-weight:700;font-size:1.05rem;transition:transform 4s ease-in-out;box-shadow:0 0 0 14px var(--lavanda-suave)}
 .fase{font-size:1.15rem;font-weight:700;color:var(--bosque);min-height:1.8em}
 .tempo{font-size:2rem;font-family:var(--fd);color:var(--lavanda)}
 .paso-box{background:var(--lavanda-suave);border-radius:18px;padding:18px;margin-top:14px;text-align:center}
