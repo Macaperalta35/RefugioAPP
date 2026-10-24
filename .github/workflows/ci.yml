@@ -25,6 +25,8 @@ jobs:
       - run: npm ci
       - run: npm run lint
       - run: npm run build
+      - name: Generador de assetlinks.json (Play Store)
+        run: node --test docs/play-store/sitio-raiz/generar-assetlinks.test.mjs
 
   mcp:
     runs-on: ubuntu-latest
