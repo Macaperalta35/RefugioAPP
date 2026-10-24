@@ -1,5 +1,3 @@
-// Compartido por la app (Mapa) y el servidor MCP (mcp/herramientas.js)
-
 /** Distancia en km entre dos puntos { lat, lng } (fórmula de Haversine) */
 export const distanciaKm = (a, b) => {
   const rad = (g) => (g * Math.PI) / 180

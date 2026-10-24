@@ -96,5 +96,5 @@ Las capturas usan datos de ejemplo (la tarjeta de «Sofía» y una agenda invent
 ## Cómo se generan las capturas
 
 Las capturas son de la app real (360×640 a 3x), en un marco con un título.
-Si cambias una pantalla, vuelve a sacarlas con la app abierta en el teléfono o pídele a Claude que las regenere.
+Si cambias una pantalla, vuelve a sacarlas con la app abierta en el teléfono.
 El mapa no está incluido porque las imágenes de OpenStreetMap dependen de la conexión; si quieres agregarlo, saca la captura desde tu teléfono.
