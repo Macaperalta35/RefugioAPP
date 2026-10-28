@@ -7,20 +7,33 @@ nuevas a Play.
 
 | Paso | Quién | Estado |
 |---|---|---|
-| 1. PWA (manifiesto, service worker, íconos) y política de privacidad | Código | ✅ Listo en este repo |
+| 1. PWA (manifiesto, service worker, íconos, capturas) y política de privacidad | Código | ✅ Listo en este repo |
 | 2. Revisar contenido de ejemplo | Código + tú | ✅ Ejemplos eliminados · ⏳ revisar espacios del mapa |
-| 3. Cuenta de Google Play Console | Tú | ⏳ |
-| 4. Generar el paquete Android con PWABuilder | Tú | ⏳ |
-| 5. Verificar el dominio (Digital Asset Links) | Código + tú | ⏳ Requiere la huella del paso 4 |
-| 6. Ficha y formularios en Play Console | Tú | ⏳ |
-| 7. Prueba cerrada (12 testers × 14 días) | Tú | ⏳ |
-| 8. Solicitar acceso a producción | Tú | ⏳ |
+| 3. Cuenta de Google Play Console | Tú | ⏳ **Esperando la verificación de identidad de Google** |
+| 4. Generar el paquete Android con PWABuilder | Tú | ⏳ Opciones listas abajo |
+| 5. Verificar el dominio (Digital Asset Links) | Código + tú | ✅ Plantilla y generador listos en [`play-store/sitio-raiz/`](play-store/sitio-raiz/README.md) · ⏳ faltan las huellas |
+| 6. Ficha y formularios en Play Console | Tú | ✅ Textos, capturas y respuestas listos en [`play-store/`](play-store/) · ⏳ copiarlos en Play Console |
+| 7. Prueba cerrada (12 testers × 14 días) | Tú | ⏳ Página de registro lista en `#testers` |
+| 8. Solicitar acceso a producción | Tú | ⏳ Borrador del cuestionario en [`play-store/formularios.md`](play-store/formularios.md) |
+
+### Lo que ya está listo en el repo
+
+| Qué | Dónde |
+|---|---|
+| Textos de la ficha (nombre, descripción breve y completa, novedades), con límites verificados | [`play-store/ficha.md`](play-store/ficha.md) |
+| 6 capturas de teléfono 1080×1920 con título | [`play-store/capturas/`](play-store/capturas/) |
+| Ícono 512×512 y gráfico de funciones 1024×500 | `marca/play-icono-512.png`, `marca/play-grafico-funciones-1024x500.png` |
+| Respuestas de todos los formularios de *Contenido de la app* | [`play-store/formularios.md`](play-store/formularios.md) |
+| Sitio raíz para `assetlinks.json` y generador con validación de huellas | [`play-store/sitio-raiz/`](play-store/sitio-raiz/README.md) |
+| Política de privacidad publicada | https://macaperalta35.github.io/RefugioAPP/privacidad.html |
+
+**Mientras Google verifica tu identidad, no hay nada más que hacer en el código.** Cuando aprueben la cuenta, sigue desde el paso 4.
 
 ---
 
 ## 1. PWA ✅
 
-- Manifiesto: `vite.config.js` (`VitePWA`). Nombre, colores, íconos y accesos directos (Calma, Mapa).
+- Manifiesto: `vite.config.js` (`VitePWA`). Nombre, colores, íconos, accesos directos (Calma, Mapa, Organizar) y capturas para el diálogo de instalación (`public/screenshots/`).
 - Íconos: `public/app-icon-512.png` y versiones adaptables `public/app-icon-maskable-*.png`.
 - Sin conexión: Workbox precarga toda la app; las técnicas de calma, pictogramas y estados funcionan sin internet.
   El mapa necesita conexión para descargar las imágenes de OpenStreetMap.
@@ -51,7 +64,12 @@ Play rechaza apps de salud con afirmaciones engañosas. Antes de pasar a producc
    - **Package ID:** `io.github.macaperalta35.refugio`. **Es permanente y no se puede cambiar después de publicar.**
    - **App name:** `Refugio` · **Launcher name:** `Refugio`
    - **Version:** `1.0.0` · **Version code:** `1`
-   - **Signing key:** *Create new*.
+   - **Signing key:** *Create new*. Usa tu nombre y «Refugio» en los datos de la clave.
+   - **Display mode:** `Standalone` · **Status bar / Nav bar color:** `#F2F6F4`
+   - **Notification delegation:** **desactivado**. Refugio no envía notificaciones y así Android no pide ese permiso.
+   - **Location delegation:** **activado**. Lo usan «Mi ubicación» en el mapa y el SOS.
+   - **Google Play billing:** desactivado (la app es gratis).
+   - Deja el resto de opciones como vienen.
 4. Descarga el ZIP. Contiene:
    - `*.aab`: el archivo que se sube a Play.
    - `*.apk`: para instalar y probar en tu teléfono.
@@ -97,15 +115,17 @@ Como Refugio vive en `/RefugioAPP/`, se necesita un repositorio de sitio de usua
 
 ## 6. Ficha y formularios en Play Console
 
-**Crear app:** nombre *Refugio*, idioma español (Latinoamérica), tipo *App*, *Gratis*.
+> Los textos exactos, con el conteo de caracteres, están en [`play-store/ficha.md`](play-store/ficha.md),
+> y todas las respuestas de los formularios, explicadas, en [`play-store/formularios.md`](play-store/formularios.md).
+> Lo de abajo es el resumen.
+
+**Crear app:** nombre *Refugio: calma y apoyo*, idioma español (Latinoamérica), tipo *App*, *Gratis*.
 
 **Ficha de Play Store:**
-- Descripción breve (máx. 80 caracteres), por ejemplo:
-  *Espacios de calma, técnicas para crisis de ansiedad y apoyo neurodivergente.*
-- Descripción completa: puedes partir de la tabla de módulos del `README.md`. Incluye el aviso de que no reemplaza la atención de urgencia (131 SAMU).
+- Descripción breve y completa: las de `play-store/ficha.md`. La completa ya incluye el aviso de que no reemplaza la atención de urgencia (131 SAMU).
 - Ícono 512×512: `docs/marca/play-icono-512.png`.
 - Gráfico de funciones 1024×500 (obligatorio): `docs/marca/play-grafico-funciones-1024x500.png`.
-- Mínimo 2 capturas de teléfono. Lo más fácil es sacarlas desde el teléfono con la app instalada.
+- Capturas de teléfono: las 6 de `docs/play-store/capturas/`, en orden.
 - Categoría: **Salud y bienestar**.
 - Datos de contacto (obligatorio): correo **macaperalta35@gmail.com**, el mismo de `src/data/contacto.js`.
 
@@ -142,7 +162,7 @@ Solo para cuentas personales nuevas, al cumplir los 14 días de la prueba cerrad
 ### 8.2 Crear la versión de producción
 1. *Prueba y lanzamiento → Producción → Crear versión*.
 2. **Agregar desde la biblioteca**: elige el mismo `.aab` que probaste en la prueba cerrada. No hace falta generar otro.
-3. Escribe las **notas de la versión**, por ejemplo: *Primera versión de Refugio: espacios de calma, técnicas para crisis, pictogramas y SOS.*
+3. Escribe las **notas de la versión**: copia las de [`play-store/ficha.md`](play-store/ficha.md).
 4. *Países y regiones*: agrega **Chile**, o más países si quieres.
 5. *Revisar versión → Iniciar lanzamiento a producción*.
 
