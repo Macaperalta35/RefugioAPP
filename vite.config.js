@@ -9,7 +9,7 @@ export default defineConfig({
     // PWA: instalable y usable sin conexión (requisito para empaquetarla como TWA en Play Store)
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['refugio-isotipo.svg', 'favicon-64.png', 'privacidad.html'],
+      includeAssets: ['refugio-isotipo.svg', 'favicon-64.png', 'privacidad.html', 'terminos.html'],
       manifest: {
         id: './',
         name: 'Refugio — Espacios de calma y apoyo',

@@ -61,7 +61,7 @@ export default function App() {
           Creado por <a href={CREADORA.github} target="_blank" rel="noreferrer">{CREADORA.nombre}</a> ·
           Contacto: <a href={`mailto:${CREADORA.correo}`}>{CREADORA.correo}</a> ·
           Instagram: <a href={`https://www.instagram.com/${CREADORA.instagram}/`} target="_blank" rel="noreferrer">@{CREADORA.instagram}</a> ·{' '}
-          <a href="#testers">Ser tester</a> · <a href="./privacidad.html">Privacidad</a>
+          <a href="#testers">Ser tester</a> · <a href="./privacidad.html">Privacidad</a> · <a href="./terminos.html">Términos</a>
         </p>
       </footer>
       <NavTabs vista={vista} irA={irA} />

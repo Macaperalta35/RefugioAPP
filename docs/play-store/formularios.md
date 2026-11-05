@@ -19,6 +19,14 @@ Si la app cambia (por ejemplo, si se agrega un servidor o analítica), hay que r
 https://macaperalta35.github.io/RefugioAPP/privacidad.html
 ```
 
+## Términos del servicio
+
+Campo opcional de la ficha (*Configuración de la tienda*). Refugio los tiene publicados:
+
+```
+https://macaperalta35.github.io/RefugioAPP/terminos.html
+```
+
 ## Acceso a la app
 
 **Toda la funcionalidad está disponible sin restricciones de acceso.** No hay inicio de sesión.
