@@ -91,6 +91,7 @@ Las capturas usan datos de ejemplo (la tarjeta de «Sofía» y una agenda invent
 | Correo de contacto | macaperalta35@gmail.com |
 | Sitio web | https://macaperalta35.github.io/RefugioAPP/ |
 | Política de privacidad | https://macaperalta35.github.io/RefugioAPP/privacidad.html |
+| Términos del servicio | https://macaperalta35.github.io/RefugioAPP/terminos.html |
 | Idioma predeterminado | Español (Latinoamérica) – es-419 |
 
 ## Cómo se generan las capturas
