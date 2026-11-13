@@ -7,7 +7,9 @@
       "namespace": "android_app",
       "package_name": "io.github.macaperalta35.refugio",
       "sha256_cert_fingerprints": [
-        "E0:A0:48:80:84:D7:F4:12:5C:FE:07:FD:7D:CA:9A:FE:E9:AA:9C:A9:62:36:2E:52:88:8C:AE:AA:FB:B6:61:92"
+        "E0:A0:48:80:84:D7:F4:12:5C:FE:07:FD:7D:CA:9A:FE:E9:AA:9C:A9:62:36:2E:52:88:8C:AE:AA:FB:B6:61:92",
+        "21:DA:1F:49:2C:A0:C7:03:8F:FD:7B:FD:16:59:BA:0F:39:BC:07:C1:45:7A:07:93:96:2B:2D:A1:E0:69:F8:04",
+        "C4:3D:F6:0C:D5:32:DD:C8:2F:43:88:DB:A1:21:A2:65:34:8F:83:E4:33:67:95:AA:2A:12:3E:F3:65:56:52:7D"
       ]
     }
   }
