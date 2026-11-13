@@ -1,0 +1,14 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "io.github.macaperalta35.refugio",
+      "sha256_cert_fingerprints": [
+        "E0:A0:48:80:84:D7:F4:12:5C:FE:07:FD:7D:CA:9A:FE:E9:AA:9C:A9:62:36:2E:52:88:8C:AE:AA:FB:B6:61:92"
+      ]
+    }
+  }
+]
