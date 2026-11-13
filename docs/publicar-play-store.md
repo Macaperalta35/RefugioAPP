@@ -9,9 +9,9 @@ nuevas a Play.
 |---|---|---|
 | 1. PWA (manifiesto, service worker, íconos, capturas) y política de privacidad | Código | ✅ Listo en este repo |
 | 2. Revisar contenido de ejemplo | Código + tú | ✅ Ejemplos eliminados · ⏳ revisar espacios del mapa |
-| 3. Cuenta de Google Play Console | Tú | ⏳ **Esperando la verificación de identidad de Google** |
+| 3. Cuenta de Google Play Console | Tú | ✅ Cuenta aprobada y app creada (`io.github.macaperalta35.refugio`) |
 | 4. Generar el paquete Android con PWABuilder | Tú | ⏳ Opciones listas abajo |
-| 5. Verificar el dominio (Digital Asset Links) | Código + tú | ✅ Plantilla y generador listos en [`play-store/sitio-raiz/`](play-store/sitio-raiz/README.md) · ⏳ faltan las huellas |
+| 5. Verificar el dominio (Digital Asset Links) | Código + tú | ✅ Publicado en https://macaperalta35.github.io/.well-known/assetlinks.json (repositorio `Macaperalta35.github.io`) y confirmado por la API de Google |
 | 6. Ficha y formularios en Play Console | Tú | ✅ Textos, capturas y respuestas listos en [`play-store/`](play-store/) · ⏳ copiarlos en Play Console |
 | 7. Prueba cerrada (12 testers × 14 días) | Tú | ⏳ Página de registro lista en `#testers` |
 | 8. Solicitar acceso a producción | Tú | ⏳ Borrador del cuestionario en [`play-store/formularios.md`](play-store/formularios.md) |
